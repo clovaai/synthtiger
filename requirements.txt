@@ -1,0 +1,13 @@
+arabic-reshaper
+blend-modes
+fonttools
+imgaug
+numpy
+opencv-python
+Pillow>=6.2.0
+pygame
+python-bidi
+pytweening
+pyyaml
+regex
+scipy

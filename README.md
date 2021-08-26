@@ -1,6 +1,6 @@
 # 🐯 SynthTIGER: Synthetic Text Image GEneratoR
 
-Official implementation of SynthTIGER | [Paper](https://arxiv.org/abs/2107.09313) | [Datasets](#datasets)
+Official implementation of SynthTIGER | [Paper](https://arxiv.org/abs/2107.09313) | [Datasets](#datasets) | [Documentation](https://clovaai.github.io/synthtiger/)
 
 **[Moonbin Yim](https://github.com/moonbings)<sup>1</sup>, Yoonsik Kim<sup>1</sup>, Han-cheol Cho<sup>1</sup>, Sungrae Park<sup>2</sup>**
 
@@ -20,6 +20,7 @@ Official implementation of SynthTIGER | [Paper](https://arxiv.org/abs/2107.09313
 
 - [Updates](#updates)
 - [Datasets](#datasets)
+- [Documentation](#documentation)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
 - [Citation](#citation)
@@ -74,6 +75,12 @@ images/0/1.jpg	date:
 images/999/9999998.jpg	STUFFIER
 images/999/9999999.jpg	Re:
 ```
+
+## Documentation
+
+The documentation is available at <https://clovaai.github.io/synthtiger/>.
+
+You can check API reference in this documentation.
 
 ## Usage
 

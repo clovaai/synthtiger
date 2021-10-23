@@ -28,9 +28,21 @@ Official implementation of SynthTIGER | [Paper](https://arxiv.org/abs/2107.09313
 
 ## Updates
 
+**Oct 23, 2021**: Dataset was split into several smaller files.
+
 ## Datasets
 
 SynthTIGER is available for download at [google drive](https://drive.google.com/drive/folders/1faHxo6gVeUmmFKJf8dxFZf_yRjamUL96?usp=sharing).
+
+Dataset was split into several smaller files. Please download all files and run following command.
+
+```bash
+# for Linux, macOS
+cat synthtiger_v1.0.zip.* > synthtiger_v1.0.zip
+
+# for Windows
+copy /b synthtiger_v1.0.zip.* synthtiger_v1.0.zip
+```
 
 **synthtiger_v1.0.zip** (36G) (md5: 5b5365f4fe15de24e403a9256079be70)
 

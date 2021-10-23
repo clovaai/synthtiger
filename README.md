@@ -182,11 +182,13 @@ python gen.py --template templates/multiline.py --config templates/multiline.yam
 ## Citation
 
 ```
-@article{yim2021synthtiger,
+@inproceedings{yim2021synthtiger,
   title={SynthTIGER: Synthetic Text Image GEneratoR Towards Better Text Recognition Models},
   author={Yim, Moonbin and Kim, Yoonsik and Cho, Han-Cheol and Park, Sungrae},
-  journal={arXiv preprint arXiv:2107.09313},
-  year={2021}
+  booktitle={International Conference on Document Analysis and Recognition},
+  pages={109--124},
+  year={2021},
+  organization={Springer}
 }
 ```
 

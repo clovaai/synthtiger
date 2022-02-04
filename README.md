@@ -232,6 +232,5 @@ THE SOFTWARE.
 The following directories and their subdirectories are licensed the same as their origins. Please refer to [NOTICE](NOTICE)
 ```
 docs/
-docsrc/
 resources/font/
 ```

@@ -4,6 +4,8 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license
 """
 
+import traceback
+
 import pytest
 
 
@@ -27,4 +29,5 @@ def test_generation_error(template, request):
             assert "label" in data
         except:
             error += 1
+            print(traceback.format_exc())
     assert error < total

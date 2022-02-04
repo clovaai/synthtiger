@@ -56,18 +56,18 @@ class CurveLayout(Component):
         if vertical:
             w = curve * orientation
             h = (size[1] + space) * mid
-            a = w / h ** 2 if h > 0 else 0
+            a = w / h**2 if h > 0 else 0
             for idx, layer in enumerate(layers):
                 y = (size[1] + space) * (idx - mid)
-                x = a * y ** 2
+                x = a * y**2
                 layer.center = (x, y)
         else:
             w = (size[0] + space) * mid
             h = curve * orientation
-            a = h / w ** 2 if w > 0 else 0
+            a = h / w**2 if w > 0 else 0
             for idx, layer in enumerate(layers):
                 x = (size[0] + space) * (idx - mid)
-                y = a * x ** 2
+                y = a * x**2
                 layer.center = (x, y)
 
         if not upward:

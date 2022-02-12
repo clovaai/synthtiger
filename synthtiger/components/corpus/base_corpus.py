@@ -16,33 +16,38 @@ from synthtiger.components.component import Component
 class BaseCorpus(Component):
     def __init__(
         self,
-        paths=None,
-        weights=None,
+        paths=(),
+        weights=(),
         min_length=None,
         max_length=None,
         charset=None,
-        textcase=0,
-        textcase_weights=(1, 1, 1),
+        textcase=None,
     ):
         super().__init__()
-        self.paths = [] if paths is None else paths
-        self.weights = [1] * len(self.paths) if weights is None else weights
+        self.paths = paths
+        self.weights = weights
         self.min_length = min_length
         self.max_length = max_length
         self.charset = charset
         self.textcase = textcase
-        self.textcase_weights = textcase_weights
         self._contents = []
         self._offsets = []
         self._counts = []
+        self._probs = np.array(self.weights) / sum(self.weights)
         self._charset = set()
-        self._textcase_methods = [str.lower, str.upper, str.capitalize]
         self._update_charset()
         self._update_contents()
 
     def sample(self, meta=None):
         if meta is None:
             meta = {}
+
+        if len(self.paths) == 0:
+            raise RuntimeError("Corpus path is not specified")
+        if len(self.paths) != len(self.weights):
+            raise RuntimeError(
+                "The number of weights does not match the number of corpus paths"
+            )
 
         text = self._sample_text()
         text = self._random_textcase(text)
@@ -116,16 +121,25 @@ class BaseCorpus(Component):
         return text
 
     def _sample_text(self):
-        probs = np.array(self.weights) / sum(self.weights)
-        key = np.random.choice(len(self.paths), p=probs)
+        key = np.random.choice(len(self.paths), p=self._probs)
+        if self._counts[key] == 0:
+            raise RuntimeError(f"There is no text: {self.paths[key]}")
+
         idx = np.random.randint(self._counts[key])
         text = self._get_text(key, idx)
         return text
 
     def _random_textcase(self, text):
-        textcase = np.random.rand() < self.textcase
-        if textcase:
-            probs = np.array(self.textcase_weights) / sum(self.textcase_weights)
-            textcase = np.random.choice(3, p=probs)
-            text = self._textcase_methods[textcase](text)
+        if self.textcase is None:
+            return text
+
+        textcase = self.textcase[np.random.randint(len(self.textcase))]
+
+        if textcase == "lower":
+            text = text.lower()
+        if textcase == "upper":
+            text = text.upper()
+        if textcase == "capitalize":
+            text = text.capitalize()
+
         return text

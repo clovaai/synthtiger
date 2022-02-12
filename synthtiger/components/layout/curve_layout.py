@@ -12,11 +12,11 @@ from synthtiger.components.component import Component
 
 class CurveLayout(Component):
     def __init__(
-        self, space=(0, 0), curve=(10, 20), convex=0.5, upward=0.5, vertical=False
+        self, curve=(10, 20), space=(0, 0), convex=0.5, upward=0.5, vertical=False
     ):
         super().__init__()
-        self.space = space
         self.curve = curve
+        self.space = space
         self.convex = convex
         self.upward = upward
         self.vertical = vertical
@@ -25,15 +25,15 @@ class CurveLayout(Component):
         if meta is None:
             meta = {}
 
-        space = meta.get("space", np.random.randint(self.space[0], self.space[1] + 1))
         curve = meta.get("curve", np.random.randint(self.curve[0], self.curve[1] + 1))
+        space = meta.get("space", np.random.randint(self.space[0], self.space[1] + 1))
         convex = meta.get("convex", np.random.rand() < self.convex)
         upward = meta.get("upward", np.random.rand() < self.upward)
         vertical = meta.get("vertical", self.vertical)
 
         meta = {
-            "space": space,
             "curve": curve,
+            "space": space,
             "convex": convex,
             "upward": upward,
             "vertical": vertical,
@@ -43,8 +43,8 @@ class CurveLayout(Component):
 
     def apply(self, layers, meta=None):
         meta = self.sample(meta)
-        space = meta["space"]
         curve = meta["curve"]
+        space = meta["space"]
         convex = meta["convex"]
         upward = meta["upward"]
         vertical = meta["vertical"]

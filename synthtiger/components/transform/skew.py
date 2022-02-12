@@ -17,13 +17,13 @@ class Skew(Component):
         self.weights = weights
         self.angle = angle
         self.ccw = ccw
+        self._probs = np.array(self.weights) / sum(self.weights)
 
     def sample(self, meta=None):
         if meta is None:
             meta = {}
 
-        probs = np.array(self.weights) / sum(self.weights)
-        axis = meta.get("axis", np.random.choice(2, p=probs))
+        axis = meta.get("axis", np.random.choice(2, p=self._probs))
         angle = meta.get("angle", np.random.uniform(self.angle[0], self.angle[1]))
         ccw = meta.get("ccw", np.random.rand() < self.ccw)
 

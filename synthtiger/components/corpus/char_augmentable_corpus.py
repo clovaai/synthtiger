@@ -15,19 +15,16 @@ from synthtiger.components.corpus.base_corpus import BaseCorpus
 class CharAugmentableCorpus(BaseCorpus):
     def __init__(
         self,
-        paths=None,
-        weights=None,
+        paths=(),
+        weights=(),
         min_length=None,
         max_length=None,
         charset=None,
-        textcase=0,
-        textcase_weights=(1, 1, 1),
+        textcase=None,
         augmentation=0,
         augmentation_charset=None,
     ):
-        super().__init__(
-            paths, weights, min_length, max_length, charset, textcase, textcase_weights
-        )
+        super().__init__(paths, weights, min_length, max_length, charset, textcase)
         self.augmentation = augmentation
         self.augmentation_charset = augmentation_charset
         self._augmentation_charset = set()
@@ -68,8 +65,10 @@ class CharAugmentableCorpus(BaseCorpus):
         if not augmentation:
             return super()._sample_text()
 
-        probs = np.array(self.weights) / sum(self.weights)
-        key = np.random.choice(len(self.paths), p=probs)
+        key = np.random.choice(len(self.paths), p=self._probs)
+        if self._counts[key] == 0:
+            raise RuntimeError(f"There is no text: {self.paths[key]}")
+
         value = np.random.rand() * self._dists[key][-1]
         idx = np.searchsorted(self._dists[key], value)
         idx = min(idx, self._counts[key] - 1)

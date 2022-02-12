@@ -8,18 +8,24 @@ import numpy as np
 
 from synthtiger.components.color import RGB
 from synthtiger.components.component import Component
-from synthtiger.layers import Group
 
 
 class TextShadow(Component):
-    def __init__(self, distance=(1, 5), angle=(0, 360), color=None):
+    def __init__(
+        self,
+        distance=(1, 5),
+        angle=(0, 360),
+        rgb=((0, 0), (0, 0), (0, 0)),
+        alpha=(0, 0.5),
+        grayscale=0,
+    ):
         super().__init__()
-        if color is None:
-            color = {}
-
         self.distance = distance
         self.angle = angle
-        self.color = RGB(**color)
+        self.rgb = rgb
+        self.alpha = alpha
+        self.grayscale = grayscale
+        self._color = RGB()
 
     def sample(self, meta=None):
         if meta is None:
@@ -29,12 +35,23 @@ class TextShadow(Component):
             "distance", np.random.randint(self.distance[0], self.distance[1] + 1)
         )
         angle = meta.get("angle", np.random.uniform(self.angle[0], self.angle[1]))
-        color = self.color.sample(meta.get("color"))
+        rgb = meta.get(
+            "rgb",
+            (
+                np.random.randint(self.rgb[0][0], self.rgb[0][1] + 1),
+                np.random.randint(self.rgb[1][0], self.rgb[1][1] + 1),
+                np.random.randint(self.rgb[2][0], self.rgb[2][1] + 1),
+            ),
+        )
+        alpha = meta.get("alpha", np.random.uniform(self.alpha[0], self.alpha[1]))
+        grayscale = meta.get("grayscale", np.random.rand() < self.grayscale)
 
         meta = {
             "distance": distance,
             "angle": angle,
-            "color": color,
+            "rgb": rgb,
+            "alpha": alpha,
+            "grayscale": grayscale,
         }
 
         return meta
@@ -43,7 +60,6 @@ class TextShadow(Component):
         meta = self.sample(meta)
         distance = meta["distance"]
         angle = meta["angle"]
-        color = meta["color"]
 
         radian = np.radians(angle)
         offsets = np.array([np.cos(radian), -np.sin(radian)])
@@ -51,9 +67,9 @@ class TextShadow(Component):
         for layer in layers:
             shadow_layer = layer.copy()
             shadow_layer.quad += offsets * distance
-            self.color.apply([shadow_layer], color)
+            self._color.apply([shadow_layer], meta)
 
-            out_layer = Group([layer, shadow_layer]).merge()
+            out_layer = (layer + shadow_layer).merge()
             layer.image = out_layer.image
             layer.quad = out_layer.quad
 

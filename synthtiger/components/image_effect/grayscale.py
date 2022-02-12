@@ -8,7 +8,7 @@ from synthtiger import utils
 from synthtiger.components.component import Component
 
 
-class Fit(Component):
+class Grayscale(Component):
     def sample(self, meta=None):
         meta = {}
         return meta
@@ -17,13 +17,7 @@ class Fit(Component):
         meta = self.sample(meta)
 
         for layer in layers:
-            image = layer.output()
-            image, bbox = utils.fit_image(image)
-
-            topleft = layer.topleft + bbox[:2]
-            height, width = image.shape[:2]
-
+            image = utils.grayscale_image(layer.image)
             layer.image = image
-            layer.bbox = [*topleft, width, height]
 
         return meta

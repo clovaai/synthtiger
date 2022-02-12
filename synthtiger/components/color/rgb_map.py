@@ -4,49 +4,62 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license
 """
 
-import copy
-
 import numpy as np
 
+from synthtiger import utils
 from synthtiger.components.color.color_map import ColorMap
 
 
 class RGBMap(ColorMap):
-    def __init__(self, paths=None, weights=None, k=2, alpha=(1, 1)):
-        super().__init__(paths, weights)
-        self.k = k
+    def __init__(self, paths=(), weights=(), k=2, alpha=(1, 1), grayscale=0):
+        super().__init__(paths, weights, k)
         self.alpha = alpha
+        self.grayscale = grayscale
 
     def sample(self, meta=None):
         if meta is None:
-            meta = {}
+            meta = []
 
-        key = np.random.choice(len(self.paths), p=self._probs)
-        k = meta.get("k", self.k)
-        rgbmap = self._sample_colormap(key, k)
-        colors = []
+        if len(self.paths) == 0:
+            raise RuntimeError("RGB map path is not specified")
+        if len(self.paths) != len(self.weights):
+            raise RuntimeError(
+                "The number of weights does not match the number of rgb map paths"
+            )
 
-        for rgb in rgbmap:
-            rgb = tuple(map(round, rgb))
+        colormap = self._sample_colormap()
+        new_meta = []
+
+        for color in colormap:
+            rgb = tuple(map(round, color))
             alpha = np.random.uniform(self.alpha[0], self.alpha[1])
-            colors.append(
+            grayscale = np.random.rand() < self.grayscale
+            new_meta.append(
                 {
                     "rgb": rgb,
                     "alpha": alpha,
+                    "grayscale": grayscale,
                 }
             )
 
-        meta_colors = meta.get("colors", [{} for _ in colors])
-        for idx, color in enumerate(colors):
-            color.update(meta_colors[idx])
+        for data, new_data in zip(meta, new_meta):
+            new_data.update(data)
 
-        meta = {
-            "k": k,
-            "colors": colors,
-        }
-
-        return meta
+        return new_meta
 
     def data(self, meta):
-        colors = copy.deepcopy(meta["colors"])
+        colors = []
+
+        for data in meta:
+            rgb = data["rgb"]
+            alpha = round(data["alpha"] * 255)
+            grayscale = data["grayscale"]
+
+            if grayscale:
+                gray = utils.to_gray(rgb)
+                rgb = (gray, gray, gray)
+
+            color = rgb + (alpha,)
+            colors.append(color)
+
         return colors

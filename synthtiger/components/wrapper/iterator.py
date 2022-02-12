@@ -14,7 +14,7 @@ class Iterator(Component):
 
         if args is not None:
             for component, arg in zip(self.components, args):
-                component._init(arg)
+                component._init(**arg)
 
     def sample(self, meta=None):
         if meta is None:
@@ -49,5 +49,5 @@ class Iterator(Component):
 
         return data
 
-    def _init(self, kwargs):
-        self.__init__(self.components, **kwargs)
+    def _init(self, *args, **kwargs):
+        self.__init__(self.components, *args, **kwargs)

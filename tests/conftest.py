@@ -6,31 +6,34 @@ MIT license
 
 import pytest
 
-import utils
+import synthtiger
 
 
-@pytest.fixture(scope="session")
-def default_horizontal_template():
-    """Default horizontal template fixture"""
-    template = utils.read_template("templates/default.py")
-    config = utils.read_config("templates/default_horizontal.yaml")
-    template = template(**config)
+@pytest.fixture
+def synthtiger_horizontal_template():
+    """SynthTIGER horizontal template fixture"""
+    config = synthtiger.read_config("examples/synthtiger/config_horizontal.yaml")
+    template = synthtiger.read_template(
+        "examples/synthtiger/template.py", "SynthTiger", config
+    )
     return template
 
 
-@pytest.fixture(scope="session")
-def default_vertical_template():
-    """Default vertical template fixture"""
-    template = utils.read_template("templates/default.py")
-    config = utils.read_config("templates/default_vertical.yaml")
-    template = template(**config)
+@pytest.fixture
+def synthtiger_vertical_template():
+    """SynthTIGER vertical template fixture"""
+    config = synthtiger.read_config("examples/synthtiger/config_vertical.yaml")
+    template = synthtiger.read_template(
+        "examples/synthtiger/template.py", "SynthTiger", config
+    )
     return template
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def multiline_template():
     """Multiline template fixture"""
-    template = utils.read_template("templates/multiline.py")
-    config = utils.read_config("templates/multiline.yaml")
-    template = template(**config)
+    config = synthtiger.read_config("examples/multiline/config.yaml")
+    template = synthtiger.read_template(
+        "examples/multiline/template.py", "Multiline", config
+    )
     return template

@@ -16,10 +16,11 @@ class Selector(Component):
         self.weights = weights
         if self.weights is None:
             self.weights = [1] * len(components)
+        self._probs = np.array(self.weights) / sum(self.weights)
 
         if args is not None:
             for component, arg in zip(self.components, args):
-                component._init(arg)
+                component._init(**arg)
 
     def sample(self, meta=None):
         if meta is None:
@@ -50,10 +51,9 @@ class Selector(Component):
         data = self.components[idx].data(sub_meta)
         return data
 
-    def _init(self, kwargs):
-        self.__init__(self.components, **kwargs)
+    def _init(self, *args, **kwargs):
+        self.__init__(self.components, *args, **kwargs)
 
     def _sample_idx(self):
-        probs = np.array(self.weights) / sum(self.weights)
-        idx = np.random.choice(len(self.components), replace=False, p=probs)
+        idx = np.random.choice(len(self.components), replace=False, p=self._probs)
         return idx

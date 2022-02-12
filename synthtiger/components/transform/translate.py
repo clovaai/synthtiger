@@ -11,33 +11,58 @@ from synthtiger.layers import Group
 
 
 class Translate(Component):
-    def __init__(self, offset=((-1, 1), (-1, 1))):
+    def __init__(self, pxs=None, percents=None):
         super().__init__()
-        self.offset = offset
+        self.pxs = pxs
+        self.percents = percents
+
+        shapes = [(1, 2), (2, 2)]
+        if self.pxs is not None and np.array(self.pxs).shape not in shapes:
+            raise TypeError("Shape of pxs must be (1,2) or (2,2)")
+        if self.percents is not None and np.array(self.percents).shape not in shapes:
+            raise TypeError("Shape of percents must be (1,2) or (2,2)")
 
     def sample(self, meta=None):
         if meta is None:
             meta = {}
 
-        offset = meta.get(
-            "offset",
-            (
-                np.random.uniform(self.offset[0][0], self.offset[0][1]),
-                np.random.uniform(self.offset[1][0], self.offset[1][1]),
-            ),
+        pxs = meta.get(
+            "pxs",
+            tuple(np.random.randint(px[0], px[1] + 1) for px in self.pxs)
+            if self.pxs is not None
+            else None,
+        )
+        percents = meta.get(
+            "percents",
+            tuple(
+                np.random.uniform(percent[0], percent[1]) for percent in self.percents
+            )
+            if self.percents is not None
+            else None,
         )
 
         meta = {
-            "offset": offset,
+            "pxs": pxs,
+            "percents": percents,
         }
 
         return meta
 
     def apply(self, layers, meta=None):
         meta = self.sample(meta)
-        offset = meta["offset"]
+        pxs = meta["pxs"]
+        percents = meta["percents"]
+
+        if pxs is not None:
+            pxs = np.tile(pxs, 2)[:2]
+        if percents is not None:
+            percents = np.tile(percents, 2)[:2]
 
         group = Group(layers)
-        group.quad += group.size * offset
+
+        if pxs is not None:
+            group.quad += pxs
+        elif percents is not None:
+            group.quad += group.size * percents
 
         return meta

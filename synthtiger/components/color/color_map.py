@@ -10,23 +10,30 @@ from synthtiger.components.component import Component
 
 
 class ColorMap(Component):
-    def __init__(self, paths=None, weights=None):
+    def __init__(self, paths=(), weights=(), k=2):
         super().__init__()
-        self.paths = [] if paths is None else paths
-        self.weights = [1] * len(self.paths) if weights is None else weights
-        self._probs = np.array(self.weights) / sum(self.weights)
+        self.paths = paths
+        self.weights = weights
+        self.k = k
         self._cluster_groups = []
+        self._counts = []
+        self._probs = np.array(self.weights) / sum(self.weights)
         self._update_cluster_groups()
 
     def _update_cluster_groups(self):
         self._cluster_groups = []
+        self._counts = []
 
         for path in self.paths:
-            cluster_group = {}
+            cluster_group = []
 
             with open(path, "r", encoding="utf-8") as fp:
                 for row in fp:
                     values = row.split()
+
+                    k = len(values) // 2
+                    if k != self.k:
+                        continue
 
                     clusters = []
                     for idx in range(0, len(values), 2):
@@ -35,15 +42,17 @@ class ColorMap(Component):
                         std = float(std)
                         clusters.append((center, std))
 
-                    k = len(values) // 2
-                    if k not in cluster_group:
-                        cluster_group[k] = []
-                    cluster_group[k].append(clusters)
+                    cluster_group.append(clusters)
 
             self._cluster_groups.append(cluster_group)
+            self._counts.append(len(cluster_group))
 
-    def _sample_colormap(self, key, k):
-        cluster_group = self._cluster_groups[key].get(k)
+    def _sample_colormap(self):
+        key = np.random.choice(len(self.paths), p=self._probs)
+        if self._counts[key] == 0:
+            raise RuntimeError(f"There is no colormap: {self.paths[key]}")
+
+        cluster_group = self._cluster_groups[key]
         clusters = cluster_group[np.random.randint(len(cluster_group))]
         colormap = [np.random.normal(center, std) for center, std in clusters]
         colormap = np.random.permutation(colormap)

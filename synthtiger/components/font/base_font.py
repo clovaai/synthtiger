@@ -16,20 +16,21 @@ from synthtiger.components.component import Component
 class BaseFont(Component):
     def __init__(
         self,
-        paths=None,
-        weights=None,
+        paths=(),
+        weights=(),
         size=(16, 48),
-        bold=0.5,
+        bold=0,
         vertical=False,
     ):
         super().__init__()
-        self.paths = [] if paths is None else paths
-        self.weights = [1] * len(self.paths) if weights is None else weights
+        self.paths = paths
+        self.weights = weights
         self.size = size
         self.bold = bold
         self.vertical = vertical
         self._paths = []
         self._counts = []
+        self._probs = np.array(self.weights) / sum(self.weights)
         self._tables = []
         self._ids = []
         self._update_paths()
@@ -38,6 +39,13 @@ class BaseFont(Component):
     def sample(self, meta=None):
         if meta is None:
             meta = {}
+
+        if len(self.paths) == 0:
+            raise RuntimeError("Font path is not specified")
+        if len(self.paths) != len(self.weights):
+            raise RuntimeError(
+                "The number of weights does not match the number of font paths"
+            )
 
         text = meta.get("text")
         path = meta.get("path", self._sample_font(text))
@@ -109,8 +117,9 @@ class BaseFont(Component):
         return glyphs
 
     def _sample_font(self, text=None):
-        probs = np.array(self.weights) / sum(self.weights)
-        key = np.random.choice(len(self.paths), p=probs)
+        key = np.random.choice(len(self.paths), p=self._probs)
+        if self._counts[key] == 0:
+            raise RuntimeError(f"There is no font: {self.paths[key]}")
 
         if text is None:
             idx = np.random.randint(len(self._paths[key]))
@@ -121,6 +130,11 @@ class BaseFont(Component):
         text = text.replace("\\", "＼")
 
         ids = [self._ids[key].get(char) for char in text]
+        if None in ids:
+            raise RuntimeError(
+                f"There is no font that can render text '{text}': {self.paths[key]}"
+            )
+
         table = self._tables[key][..., ids]
         counts = np.sum(table, axis=1)
         idxes = np.argwhere(counts == len(text)).flatten()

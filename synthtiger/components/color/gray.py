@@ -37,12 +37,16 @@ class Gray(Component):
 
     def apply(self, layers, meta=None):
         meta = self.sample(meta)
-        rgb = meta["rgb"]
-        alpha = round(meta["alpha"] * 255)
 
         for layer in layers:
             image = np.empty(layer.image.shape)
-            image[..., :] = rgb + (alpha,)
+            image[..., :] = self.data(meta)
             layer.image = utils.blend_image(image, layer.image, mask=True)
 
         return meta
+
+    def data(self, meta):
+        rgb = meta["rgb"]
+        alpha = round(meta["alpha"] * 255)
+        color = rgb + (alpha,)
+        return color

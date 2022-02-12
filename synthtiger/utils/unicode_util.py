@@ -12,7 +12,7 @@ import bidi.algorithm
 import regex
 
 
-def _load_vert_orient():
+def _read_vert_orient():
     root = os.path.dirname(os.path.abspath(__file__))
     data = {}
 
@@ -41,7 +41,7 @@ def _load_vert_orient():
 
 # https://unicode.org/Public/vertical
 _VERT_ORIENT_PATH = "VerticalOrientation-17.txt"
-_VERT_ORIENT = _load_vert_orient()
+_VERT_ORIENT = _read_vert_orient()
 
 # http://www.unicode.org/reports/tr50
 _VERT_ROT_FLIP = [0x301C, 0x301E, 0x3030, 0x30FC, 0xFF5E]
@@ -97,15 +97,41 @@ def to_fullwidth(text):
     return text
 
 
-def split_text(text, reorder=False):
+def split_text(text, reorder=False, groups=None):
+    if groups is None:
+        groups = []
+
+    text = reshape_text(text)
+    groups = [reshape_text(group) for group in groups]
+    if reorder:
+        text = reorder_text(text)
+        groups = [reorder_text(group) for group in groups]
+
+    groups = set(groups)
+    tokens = [text]
+    chars = []
+
+    if len(groups) > 0:
+        pattern = [regex.escape(group) for group in groups]
+        pattern = "({})".format("|".join(pattern))
+        tokens = regex.split(pattern, text)
+        tokens = list(filter(len, tokens))
+
+    for token in tokens:
+        if token in groups:
+            chars.append(token)
+        else:
+            chars.extend(regex.findall(r"\X", token))
+
+    return chars
+
+
+def reshape_text(text):
     reshaper = arabic_reshaper.ArabicReshaper(
         {"use_unshaped_instead_of_isolated": True}
     )
     text = reshaper.reshape(text)
-    if reorder:
-        text = reorder_text(text)
-    chars = regex.findall(r"\X", text)
-    return chars
+    return text
 
 
 def reorder_text(text):

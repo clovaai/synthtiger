@@ -20,11 +20,10 @@ class Fit(Component):
             image = layer.output()
             image, bbox = utils.fit_image(image)
 
-            top_left = layer.bbox[:2]
-            top_left += bbox[:2]
+            topleft = layer.topleft + bbox[:2]
             height, width = image.shape[:2]
 
             layer.image = image
-            layer.bbox = [*top_left, width, height]
+            layer.bbox = [*topleft, width, height]
 
         return meta

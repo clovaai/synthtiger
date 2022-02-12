@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 
 
 class Component(ABC):
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         pass
 
     @abstractmethod
@@ -21,5 +21,5 @@ class Component(ABC):
     def data(self, meta):
         raise AttributeError
 
-    def _init(self, kwargs):
-        self.__init__(**kwargs)
+    def _init(self, *args, **kwargs):
+        self.__init__(*args, **kwargs)

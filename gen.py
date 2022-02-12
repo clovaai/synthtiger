@@ -5,89 +5,88 @@ MIT license
 """
 
 import argparse
-import os
 import pprint
-import random
 import time
-import traceback
-from multiprocessing import Queue
 
-import numpy as np
-
-import utils
-
-
-def produce(args, req):
-    for _ in range(args.count):
-        req.put(None)
-
-
-def consume(args, req, res):
-    random.seed()
-    np.random.seed()
-
-    template = utils.read_template(args.template)
-    template = template(**args.config)
-
-    while True:
-        req.get()
-
-        while True:
-            try:
-                data = template.generate()
-            except:
-                print(f"{traceback.format_exc()}")
-                continue
-
-            res.put(data)
-            break
+import synthtiger
 
 
 def run(args):
-    req = Queue(maxsize=1024)
-    res = Queue(maxsize=1024)
+    if args.config is not None:
+        config = synthtiger.read_config(args.config)
+    pprint.pprint(config)
 
-    producer = utils.run_process(produce, (args, req))
-    consumers = []
-    for _ in range(args.worker):
-        consumer = utils.run_process(consume, (args, req, res))
-        consumers.append(consumer)
+    template = synthtiger.read_template(args.script, args.name, config)
+    generator = synthtiger.generator(
+        args.script, args.name, config, worker=args.worker, verbose=args.verbose
+    )
 
-    gt_path = os.path.join(args.output, "gt.txt")
-    gt_file = utils.create_gt(gt_path)
+    if args.output is not None:
+        template.init_save(args.output)
 
     for idx in range(args.count):
-        data = res.get()
-        image = data["image"]
-        label = data["label"]
-        ext = data.get("ext", "png")
-        quality = data.get("quality", 95)
+        data = next(generator)
+        if args.output is not None:
+            template.save(args.output, data, idx)
+        print(f"Generated {idx + 1} data")
 
-        shard = str(idx // 10000)
-        image_key = os.path.join("images", shard, f"{idx}.{ext}")
-        image_path = os.path.join(args.output, image_key)
-
-        utils.write_image(image_path, image, quality=quality)
-        utils.write_gt(gt_file, image_key, label)
-        print(f"Saved {idx + 1} images")
-
-    gt_file.close()
-
-    producer.terminate()
-    for consumer in consumers:
-        consumer.terminate()
+    if args.output is not None:
+        template.end_save(args.output)
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--template", type=str, required=True)
-    parser.add_argument("--config", type=str, required=True)
-    parser.add_argument("--output", type=str, required=True)
-    parser.add_argument("--count", type=int, default=100)
-    parser.add_argument("--worker", type=int, default=1)
+    parser.add_argument(
+        "-o",
+        "--output",
+        metavar="PATH",
+        type=str,
+        help="Directory path to save data.",
+    )
+    parser.add_argument(
+        "-c",
+        "--count",
+        metavar="INTEGER",
+        type=int,
+        default=100,
+        help="Number of data. [default: 100]",
+    )
+    parser.add_argument(
+        "-w",
+        "--worker",
+        metavar="INTEGER",
+        type=int,
+        default=0,
+        help="Number of workers. If 0, It generates data in the main process. [default: 0]",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        default=False,
+        help="Print error messages while generating data.",
+    )
+    parser.add_argument(
+        "script",
+        metavar="SCRIPT",
+        type=str,
+        help="Script file path.",
+    )
+    parser.add_argument(
+        "name",
+        metavar="NAME",
+        type=str,
+        help="Template class name.",
+    )
+    parser.add_argument(
+        "config",
+        metavar="CONFIG",
+        type=str,
+        nargs="?",
+        help="Config file path.",
+    )
     args = parser.parse_args()
 
-    args.config = utils.read_config(args.config)
     pprint.pprint(vars(args))
 
     return args

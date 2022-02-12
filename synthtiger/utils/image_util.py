@@ -34,13 +34,46 @@ def paste_image(src, dst, quad, mode="normal"):
     dst_height, dst_width = dst.shape[:2]
     origin = np.array(
         [[0, 0], [src_width, 0], [src_width, src_height], [0, src_height]],
-        dtype=np.float32,
+        dtype=int,
     )
-    quad = quad.astype(int).astype(np.float32)
-    matrix = cv2.getPerspectiveTransform(origin, quad)
-    src = cv2.warpPerspective(src, matrix, (dst_width, dst_height))
-    out = blend_image(src, dst, mode=mode)
-    return out
+    quad = np.array(quad, dtype=int)
+
+    src_topleft = np.amin(quad, axis=0)
+    src_bottomright = np.amax(quad, axis=0)
+    src_size = tuple(src_bottomright - src_topleft)
+    dst_topleft = [0, 0]
+    dst_bottomright = [dst_width, dst_height]
+    dst_size = (dst_width, dst_height)
+
+    topleft = np.amax([src_topleft, dst_topleft], axis=0)
+    bottomright = np.amin([src_bottomright, dst_bottomright], axis=0)
+    if any(topleft >= bottomright):
+        return None
+
+    if not all(
+        (
+            quad[0][0] == quad[3][0],
+            quad[1][0] == quad[2][0],
+            quad[0][1] == quad[1][1],
+            quad[2][1] == quad[3][1],
+            quad[1][0] - quad[0][0] == quad[2][0] - quad[3][0] == src_width,
+            quad[3][1] - quad[0][1] == quad[2][1] - quad[1][1] == src_height,
+        )
+    ):
+        origin = origin.astype(np.float32)
+        quad = (quad - src_topleft).astype(np.float32)
+        matrix = cv2.getPerspectiveTransform(origin, quad)
+        src = cv2.warpPerspective(src, matrix, src_size)
+
+    sx, sy = np.clip(topleft - src_topleft, (0, 0), src_size)
+    dx, dy = np.clip(bottomright - src_topleft, (0, 0), src_size)
+    src_area = (slice(sy, dy), slice(sx, dx))
+
+    sx, sy = np.clip(topleft - dst_topleft, (0, 0), dst_size)
+    dx, dy = np.clip(bottomright - dst_topleft, (0, 0), dst_size)
+    dst_area = (slice(sy, dy), slice(sx, dx))
+
+    dst[dst_area] = blend_image(src[src_area], dst[dst_area], mode=mode)
 
 
 def erase_image(src, dst, quad):
@@ -48,14 +81,46 @@ def erase_image(src, dst, quad):
     dst_height, dst_width = dst.shape[:2]
     origin = np.array(
         [[0, 0], [src_width, 0], [src_width, src_height], [0, src_height]],
-        dtype=np.float32,
+        dtype=int,
     )
-    quad = quad.astype(int).astype(np.float32)
-    matrix = cv2.getPerspectiveTransform(origin, quad)
-    src = cv2.warpPerspective(src, matrix, (dst_width, dst_height))
-    src[..., :3] = 0
-    out = np.clip(dst - src, 0, 255)
-    return out
+    quad = np.array(quad, dtype=int)
+
+    src_topleft = np.amin(quad, axis=0)
+    src_bottomright = np.amax(quad, axis=0)
+    src_size = tuple(src_bottomright - src_topleft)
+    dst_topleft = [0, 0]
+    dst_bottomright = [dst_width, dst_height]
+    dst_size = (dst_width, dst_height)
+
+    topleft = np.amax([src_topleft, dst_topleft], axis=0)
+    bottomright = np.amin([src_bottomright, dst_bottomright], axis=0)
+    if any(topleft >= bottomright):
+        return None
+
+    if not all(
+        (
+            quad[0][0] == quad[3][0],
+            quad[1][0] == quad[2][0],
+            quad[0][1] == quad[1][1],
+            quad[2][1] == quad[3][1],
+            quad[1][0] - quad[0][0] == quad[2][0] - quad[3][0] == src_width,
+            quad[3][1] - quad[0][1] == quad[2][1] - quad[1][1] == src_height,
+        )
+    ):
+        origin = origin.astype(np.float32)
+        quad = (quad - src_topleft).astype(np.float32)
+        matrix = cv2.getPerspectiveTransform(origin, quad)
+        src = cv2.warpPerspective(src, matrix, src_size)
+
+    sx, sy = np.clip(topleft - src_topleft, (0, 0), src_size)
+    dx, dy = np.clip(bottomright - src_topleft, (0, 0), src_size)
+    src_area = (slice(sy, dy), slice(sx, dx), 3)
+
+    sx, sy = np.clip(topleft - dst_topleft, (0, 0), dst_size)
+    dx, dy = np.clip(bottomright - dst_topleft, (0, 0), dst_size)
+    dst_area = (slice(sy, dy), slice(sx, dx), 3)
+
+    dst[dst_area] = np.clip(dst[dst_area] - src[src_area], 0, 255)
 
 
 def blend_image(src, dst, mode="normal", mask=False):
@@ -76,11 +141,12 @@ def blend_image(src, dst, mode="normal", mask=False):
 
 
 def resize_image(image, size):
+    size = (int(size[0]), int(size[1]))
     image = cv2.resize(image, size)
     return image
 
 
-def fit_image(image, top=True, bottom=True, left=True, right=True):
+def fit_image(image, top=True, right=True, bottom=True, left=True):
     height, width = image.shape[:2]
     sx, sy = 0, 0
     dx, dy = width, height
@@ -100,15 +166,34 @@ def fit_image(image, top=True, bottom=True, left=True, right=True):
     return image, bbox
 
 
-def pad_image(image, top, bottom, left, right, value=0):
-    pad = np.array([[top, bottom], [left, right], [0, 0]], dtype=int)
-    image = np.pad(image, pad, constant_values=value)
+def crop_image(image, top=0, right=0, bottom=0, left=0):
+    height, width = image.shape[:2]
+    top, right, bottom, left = max(top, 0), max(right, 0), max(bottom, 0), max(left, 0)
+    image = np.array(image)[top : height - bottom, left : width - right, :]
     return image
 
 
-def dilate_image(image, size):
-    kernel = np.ones((size * 2 + 1, size * 2 + 1))
+def pad_image(image, top=0, right=0, bottom=0, left=0, mode="constant", value=0):
+    pad = np.array([[top, bottom], [left, right], [0, 0]], dtype=int)
+    image = np.pad(image, pad, mode=mode, constant_values=value)
+    return image
+
+
+def dilate_image(image, k):
+    kernel = np.ones((k * 2 + 1, k * 2 + 1))
     image = cv2.dilate(image, kernel=kernel, iterations=1)
+    return image
+
+
+def erode_image(image, k):
+    kernel = np.ones((k * 2 + 1, k * 2 + 1))
+    image = cv2.erode(image, kernel=kernel, iterations=1)
+    return image
+
+
+def grayscale_image(image):
+    image = np.array(image)
+    image[..., :3] = to_gray(image[..., :3])[..., np.newaxis]
     return image
 
 
@@ -121,14 +206,14 @@ def add_alpha_channel(image):
 
 
 def to_quad(bbox):
-    top_left = bbox[:2]
+    topleft = bbox[:2]
     width, height = bbox[2:]
     quad = np.array(
         [
-            [top_left[0], top_left[1]],
-            [top_left[0] + width, top_left[1]],
-            [top_left[0] + width, top_left[1] + height],
-            [top_left[0], top_left[1] + height],
+            [topleft[0], topleft[1]],
+            [topleft[0] + width, topleft[1]],
+            [topleft[0] + width, topleft[1] + height],
+            [topleft[0], topleft[1] + height],
         ],
         dtype=np.float32,
     )
@@ -136,24 +221,24 @@ def to_quad(bbox):
 
 
 def to_bbox(quad):
-    top_left = np.amin(quad, axis=0)
-    bottom_right = np.amax(quad, axis=0)
-    width, height = bottom_right - top_left
-    bbox = np.array([top_left[0], top_left[1], width, height], dtype=np.float32)
+    topleft = np.amin(quad, axis=0)
+    bottomright = np.amax(quad, axis=0)
+    width, height = bottomright - topleft
+    bbox = np.array([topleft[0], topleft[1], width, height], dtype=np.float32)
     return bbox
 
 
 def merge_quad(quads):
     quads = np.array(quads, dtype=np.float32)
-    top_left = np.amin(quads, axis=(0, 1))
-    bottom_right = np.amax(quads, axis=(0, 1))
-    width, height = bottom_right - top_left
+    topleft = np.amin(quads, axis=(0, 1))
+    bottomright = np.amax(quads, axis=(0, 1))
+    width, height = bottomright - topleft
     quad = np.array(
         [
-            [top_left[0], top_left[1]],
-            [top_left[0] + width, top_left[1]],
-            [top_left[0] + width, top_left[1] + height],
-            [top_left[0], top_left[1] + height],
+            [topleft[0], topleft[1]],
+            [topleft[0] + width, topleft[1]],
+            [topleft[0] + width, topleft[1] + height],
+            [topleft[0], topleft[1] + height],
         ],
         dtype=np.float32,
     )
@@ -162,15 +247,15 @@ def merge_quad(quads):
 
 def merge_bbox(bboxes):
     bboxes = np.array(bboxes, dtype=np.float32)
-    top_left = np.amin(bboxes[..., :2], axis=0)
-    bottom_right = np.amax(bboxes[..., :2] + bboxes[..., 2:], axis=0)
-    width, height = bottom_right - top_left
-    bbox = np.array([top_left[0], top_left[1], width, height], dtype=np.float32)
+    topleft = np.amin(bboxes[..., :2], axis=0)
+    bottomright = np.amax(bboxes[..., :2] + bboxes[..., 2:], axis=0)
+    width, height = bottomright - topleft
+    bbox = np.array([topleft[0], topleft[1], width, height], dtype=np.float32)
     return bbox
 
 
 def to_gray(color):
-    gray = np.dot(color, [0.2989, 0.5870, 0.1140])
+    gray = np.dot(color, [0.299, 0.587, 0.114])
     return gray
 
 

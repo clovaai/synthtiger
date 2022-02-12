@@ -16,7 +16,7 @@ class Switch(Component):
         self.prob = prob
 
         if args is not None:
-            self.component._init(args)
+            self.component._init(**args)
 
     def sample(self, meta=None):
         if meta is None:
@@ -55,5 +55,5 @@ class Switch(Component):
 
         return data
 
-    def _init(self, kwargs):
-        self.__init__(self.component, **kwargs)
+    def _init(self, *args, **kwargs):
+        self.__init__(self.component, *args, **kwargs)

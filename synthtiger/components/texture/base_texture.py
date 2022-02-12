@@ -14,20 +14,28 @@ from synthtiger.components.component import Component
 
 
 class BaseTexture(Component):
-    def __init__(self, paths=None, weights=None, alpha=(1, 1), grayscale=0, crop=0):
+    def __init__(self, paths=(), weights=(), alpha=(1, 1), grayscale=0, crop=0):
         super().__init__()
-        self.paths = [] if paths is None else paths
-        self.weights = [1] * len(self.paths) if weights is None else weights
+        self.paths = paths
+        self.weights = weights
         self.alpha = alpha
         self.grayscale = grayscale
         self.crop = crop
         self._paths = []
         self._counts = []
+        self._probs = np.array(self.weights) / sum(self.weights)
         self._update_paths()
 
     def sample(self, meta=None):
         if meta is None:
             meta = {}
+
+        if len(self.paths) == 0:
+            raise RuntimeError("Texture path is not specified")
+        if len(self.paths) != len(self.weights):
+            raise RuntimeError(
+                "The number of weights does not match the number of texture paths"
+            )
 
         path = meta.get("path", self._sample_texture())
         alpha = meta.get("alpha", np.random.uniform(self.alpha[0], self.alpha[1]))
@@ -82,6 +90,7 @@ class BaseTexture(Component):
             paths = [path]
             if os.path.isdir(path):
                 paths = utils.search_files(path, exts=[".jpg", ".jpeg", ".png", ".bmp"])
+
             self._paths.append(paths)
             self._counts.append(len(paths))
 
@@ -103,8 +112,10 @@ class BaseTexture(Component):
         return width, height
 
     def _sample_texture(self):
-        probs = np.array(self.weights) / sum(self.weights)
-        key = np.random.choice(len(self.paths), p=probs)
+        key = np.random.choice(len(self.paths), p=self._probs)
+        if self._counts[key] == 0:
+            raise RuntimeError(f"There is no texture: {self.paths[key]}")
+
         idx = np.random.randint(len(self._paths[key]))
         path = self._paths[key][idx]
         return path

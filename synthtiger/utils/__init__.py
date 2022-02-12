@@ -10,9 +10,12 @@ from synthtiger.utils.image_util import (
     blend_image,
     color_distance,
     create_image,
+    crop_image,
     dilate_image,
     erase_image,
+    erode_image,
     fit_image,
+    grayscale_image,
     merge_bbox,
     merge_quad,
     pad_image,
@@ -25,6 +28,7 @@ from synthtiger.utils.image_util import (
 )
 from synthtiger.utils.unicode_util import (
     reorder_text,
+    reshape_text,
     split_text,
     to_fullwidth,
     vert_orient,

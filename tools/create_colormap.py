@@ -103,11 +103,39 @@ def run(args):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=str, default=None, required=True)
-    parser.add_argument("--output", type=str, default=None, required=True)
-    parser.add_argument("--max_k", type=int, default=3)
-    parser.add_argument("--rgb", action="store_true", default=False)
-    parser.add_argument("--worker", type=int, default=1)
+    parser.add_argument(
+        "--rgb",
+        action="store_true",
+        default=False,
+        help="Create rgb colormap instead of gray colormap.",
+    )
+    parser.add_argument(
+        "--max_k",
+        metavar="INTEGER",
+        type=int,
+        default=3,
+        help="Maximum number of colors. [default: 3]",
+    )
+    parser.add_argument(
+        "-w",
+        "--worker",
+        metavar="INTEGER",
+        type=int,
+        default=1,
+        help="Number of workers. [default: 1]",
+    )
+    parser.add_argument(
+        "input",
+        metavar="INPUT",
+        type=str,
+        help="Directory path containing image files.",
+    )
+    parser.add_argument(
+        "output",
+        metavar="OUTPUT",
+        type=str,
+        help="File path to save colormap.",
+    )
     args = parser.parse_args()
 
     pprint.pprint(vars(args))

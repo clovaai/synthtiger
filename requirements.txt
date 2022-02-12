@@ -2,9 +2,10 @@ arabic-reshaper
 blend-modes
 fonttools
 imgaug
+lmdb
 numpy
 opencv-python
-Pillow>=8.2.0
+pillow>=8.2.0
 pygame
 python-bidi
 pytweening

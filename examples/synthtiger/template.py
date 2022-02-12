@@ -4,10 +4,13 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license
 """
 
+import os
+
 import cv2
 import numpy as np
+from PIL import Image
 
-from synthtiger import components, layers, utils
+from synthtiger import components, layers, templates, utils
 
 BLEND_MODES = [
     "normal",
@@ -25,8 +28,11 @@ BLEND_MODES = [
 ]
 
 
-class Template:
-    def __init__(self, **config):
+class SynthTiger(templates.Template):
+    def __init__(self, config=None):
+        if config is None:
+            config = {}
+
         self.vertical = config.get("vertical", False)
         self.quality = config.get("quality", [95, 95])
         self.visibility_check = config.get("visibility_check", False)
@@ -40,23 +46,24 @@ class Template:
                 components.LengthAugmentableCorpus(),
                 components.CharAugmentableCorpus(),
             ],
-            **config.get("corpus", {})
+            **config.get("corpus", {}),
         )
         self.font = components.BaseFont(**config.get("font", {}))
         self.texture = components.Switch(
             components.BaseTexture(), **config.get("texture", {})
         )
-        self.colormap = components.GrayMap(**config.get("colormap", {}))
+        self.colormap2 = components.GrayMap(**config.get("colormap2", {}))
+        self.colormap3 = components.GrayMap(**config.get("colormap3", {}))
         self.color = components.Gray(**config.get("color", {}))
         self.shape = components.Switch(
             components.Selector(
                 [components.ElasticDistortion(), components.ElasticDistortion()]
             ),
-            **config.get("shape", {})
+            **config.get("shape", {}),
         )
         self.layout = components.Selector(
             [components.FlowLayout(), components.CurveLayout()],
-            **config.get("layout", {})
+            **config.get("layout", {}),
         )
         self.style = components.Switch(
             components.Selector(
@@ -66,12 +73,13 @@ class Template:
                     components.TextExtrusion(),
                 ]
             ),
-            **config.get("style", {})
+            **config.get("style", {}),
         )
         self.transform = components.Switch(
             components.Selector(
                 [
-                    components.Stretch(),
+                    components.Perspective(),
+                    components.Perspective(),
                     components.Trapezoidate(),
                     components.Trapezoidate(),
                     components.Skew(),
@@ -79,10 +87,10 @@ class Template:
                     components.Rotate(),
                 ]
             ),
-            **config.get("transform", {})
+            **config.get("transform", {}),
         )
         self.fit = components.Fit()
-        self.margin = components.Switch(components.Margin(), **config.get("margin", {}))
+        self.pad = components.Switch(components.Pad(), **config.get("pad", {}))
         self.postprocess = components.Iterator(
             [
                 components.Switch(components.AdditiveGaussianNoise()),
@@ -90,7 +98,7 @@ class Template:
                 components.Switch(components.Resample()),
                 components.Switch(components.MedianBlur()),
             ],
-            **config.get("postprocess", {})
+            **config.get("postprocess", {}),
         )
 
     def generate(self):
@@ -116,11 +124,33 @@ class Template:
         data = {
             "image": image,
             "label": label,
-            "ext": "jpg",
             "quality": quality,
         }
 
         return data
+
+    def init_save(self, root):
+        os.makedirs(root, exist_ok=True)
+        gt_path = os.path.join(root, "gt.txt")
+        self.gt_file = open(gt_path, "w", encoding="utf-8")
+
+    def save(self, root, data, idx):
+        image = data["image"]
+        label = data["label"]
+        quality = data["quality"]
+
+        shard = str(idx // 10000)
+        image_key = os.path.join("images", shard, f"{idx}.jpg")
+        image_path = os.path.join(root, image_key)
+
+        os.makedirs(os.path.dirname(image_path), exist_ok=True)
+        image = Image.fromarray(image[..., :3].astype(np.uint8))
+        image.save(image_path, quality=quality)
+
+        self.gt_file.write(f"{image_key}\t{label}\n")
+
+    def end_save(self, root):
+        self.gt_file.close()
 
     def _generate_color(self):
         mg_color = self.color.sample()
@@ -128,12 +158,10 @@ class Template:
         mg_style = self.style.sample()
 
         if fg_style["state"]:
-            colors = self.colormap.data(self.colormap.sample({"k": 3}))
-            fg_color, bg_color, style_color = colors
-            fg_style["meta"]["meta"]["color"]["rgb"] = style_color["rgb"]
+            fg_color, bg_color, style_color = self.colormap3.sample()
+            fg_style["meta"]["meta"]["rgb"] = style_color["rgb"]
         else:
-            colors = self.colormap.data(self.colormap.sample({"k": 2}))
-            fg_color, bg_color = colors
+            fg_color, bg_color = self.colormap2.sample()
 
         return fg_color, mg_color, bg_color, fg_style, mg_style
 
@@ -156,7 +184,7 @@ class Template:
         self.style.apply([layer], style)
         self.transform.apply([layer])
         self.fit.apply([layer])
-        self.margin.apply([layer])
+        self.pad.apply([layer])
         out = layer.output()
 
         return out, label
@@ -180,7 +208,7 @@ class Template:
         self.style.apply([layer], style)
         self.transform.apply([layer])
         self.fit.apply([layer])
-        self.margin.apply([layer])
+        self.pad.apply([layer])
         out = layer.output()
 
         mask = layers.Layer(mask)
@@ -216,7 +244,7 @@ def _blend_images(src, dst, blend_mode=None, visibility_check=False):
         if not visibility_check or _check_visibility(out, src[..., 3]):
             break
     else:
-        raise ValueError
+        raise RuntimeError("Text is not visible")
 
     return out
 

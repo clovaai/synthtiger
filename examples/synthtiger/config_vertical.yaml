@@ -1,10 +1,10 @@
-vertical: false
+vertical: true
 quality: [50, 95]
 visibility_check: true
 
 midground: 0.25
 midground_offset:
-  offset: [[-0.5, 0.5], [-0.5, 0.5]]
+  percents: [[-0.5, 0.5], [-0.5, 0.5]]
 foreground_mask_pad: 5
 
 corpus:
@@ -14,16 +14,16 @@ corpus:
     - paths: [resources/corpus/mjsynth.txt, resources/corpus/synthtext.txt]
       weights: [1, 1]
       min_length: 1
-      max_length: 25
-      textcase: 1
+      max_length: 15
+      textcase: [lower, upper, capitalize]
       augmentation: 0.1
-      augmentation_length: [1, 25]
+      augmentation_length: [1, 15]
     # char augmentable corpus
     - paths: []
       weights: []
       min_length: 1
-      max_length: 25
-      textcase: 1
+      max_length: 15
+      textcase: [lower, upper, capitalize]
       augmentation: 0
       augmentation_charset: resources/charset/alphanum_special.txt
 
@@ -42,9 +42,17 @@ texture:
     grayscale: 0
     crop: 1
 
-colormap:
+colormap2:
   paths: [resources/colormap/iiit5k_gray.txt]
   weights: [1]
+  k: 2
+  alpha: [1, 1]
+  colorize: 1
+
+colormap3:
+  paths: [resources/colormap/iiit5k_gray.txt]
+  weights: [1]
+  k: 3
   alpha: [1, 1]
   colorize: 1
 
@@ -69,10 +77,11 @@ layout:
   weights: [4, 1]
   args:
     # flow layout
-    - space: [-2, 5]
+    - space: [0, 0]
+      line_align: [middle]
     # curve layout
-    - space: [-2, 5]
-      curve: [20, 40]
+    - curve: [10, 20]
+      space: [0, 0]
       convex: 0.5
       upward: 0.5
 
@@ -83,54 +92,54 @@ style:
     args:
       # text border
       - size: [1, 12]
-        color:
-          alpha: [1, 1]
+        alpha: [1, 1]
+        grayscale: 0
       # text shadow
       - distance: [1, 6]
         angle: [0, 360]
-        color:
-          alpha: [0.3, 0.7]
+        alpha: [0.3, 0.7]
+        grayscale: 0
       # text extrusion
       - length: [1, 12]
         angle: [0, 360]
-        color:
-          alpha: [1, 1]
+        alpha: [1, 1]
+        grayscale: 0
 
 transform:
   prob: 1
   args:
-    weights: [2, 1, 1, 1, 1, 2]
+    weights: [1, 1, 1, 1, 1, 1, 2]
     args:
-      # stretch
-      - weights: [1, 1]
-        scale: [0.5, 1]
+      # perspective x
+      - percents: [[0.5, 1], [1, 1]]
+        aligns: [[0, 0], [0, 0]]
+      # perspective y
+      - percents: [[1, 1], [0.5, 1]]
+        aligns: [[0, 0], [0, 0]]
       # trapezoidate x
-      - weights: [1, 1, 0, 0]
-        scale: [0.75, 1]
+      - weights: [1, 0, 1, 0]
+        percent: [0.5, 1]
         align: [-1, 1]
       # trapezoidate y
-      - weights: [0, 0, 1, 1]
-        scale: [0.5, 1]
+      - weights: [0, 1, 0, 1]
+        percent: [0.875, 1]
         align: [-1, 1]
       # skew x
       - weights: [1, 0]
-        angle: [0, 30]
+        angle: [0, 5]
         ccw: 0.5
       # skew y
       - weights: [0, 1]
-        angle: [0, 10]
+        angle: [0, 30]
         ccw: 0.5
       # rotate
-      - angle: [0, 10]
+      - angle: [0, 5]
         ccw: 0.5
 
-margin:
+pad:
   prob: 1
   args:
-    top: [0, 10]
-    bottom: [0, 10]
-    left: [0, 10]
-    right: [0, 10]
+    pxs: [[0, 10], [0, 10], [0, 10], [0, 10]]
 
 postprocess:
   args:

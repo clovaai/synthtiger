@@ -1,0 +1,29 @@
+count: 100
+
+corpus:
+  paths: [resources/corpus/mjsynth.txt]
+  weights: [1]
+  min_length: 1
+  max_length: 25
+  textcase: [lower, upper, capitalize]
+
+font:
+  paths: [resources/font]
+  weights: [1]
+  size: [32, 64]
+  bold: 0.5
+
+color:
+  rgb: [[0, 0], [0, 0], [0, 0]]
+  alpha: [1, 1]
+  grayscale: 0
+
+layout:
+  length: [1024, 1024]
+  space: [16, 32]
+  line_space: [0, 16]
+  align: [left, center, right, justify]
+  line_align: [middle]
+  ltr: true
+  ttb: true
+  vertical: false

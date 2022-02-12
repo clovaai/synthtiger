@@ -1,34 +1,170 @@
-# 🐯 SynthTIGER: Synthetic Text Image GEneratoR
+# 🐯 SynthTIGER: Synthetic Text Image Generator
 
-Official implementation of SynthTIGER | [Paper](https://arxiv.org/abs/2107.09313) | [Datasets](#datasets) | [Documentation](https://clovaai.github.io/synthtiger/)
+[Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
 
-**[Moonbin Yim](https://github.com/moonbings)<sup>1</sup>, Yoonsik Kim<sup>1</sup>, Han-cheol Cho<sup>1</sup>, Sungrae Park<sup>2</sup>**
+SynthTIGER is synthetic text image generator for OCR model.
 
-<sup>1</sup> Clova AI Research, NAVER Corp.
-
-<sup>2</sup> Upstage AI Research
-
-<br/>
-<br/>
-
-<img src="imgs/samples.png"/>
-
-<br/>
-<br/>
+<img src="https://user-images.githubusercontent.com/12423224/153699080-29da7908-0662-4435-ba27-dd07c3bbb7f2.png"/>
 
 ## Contents
 
 - [Updates](#updates)
-- [Datasets](#datasets)
 - [Documentation](#documentation)
+- [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
+- [Datasets](#datasets)
 - [Citation](#citation)
 - [License](#license)
 
 ## Updates
 
 **Oct 23, 2021**: Dataset was split into several smaller files.
+
+## Documentation
+
+The documentation is available at <https://clovaai.github.io/synthtiger/>.
+
+You can check API reference in this documentation.
+
+## Prerequisites
+
+SynthTIGER requires `python>=3.6` and `libraqm`. If you want install dependencies, see [dependencies](depends).
+
+Run following command before use it.
+
+```bash
+$ pip install -r requirements.txt
+```
+
+## Usage
+
+```bash
+# Set environment variable (for macOS)
+$ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+```
+
+```
+usage: gen.py [-h] [-o PATH] [-c INTEGER] [-w INTEGER] [-v] SCRIPT NAME [CONFIG]
+
+positional arguments:
+  SCRIPT                Script file path.
+  NAME                  Template class name.
+  CONFIG                Config file path.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o PATH, --output PATH
+                        Directory path to save data.
+  -c INTEGER, --count INTEGER
+                        Number of data. [default: 100]
+  -w INTEGER, --worker INTEGER
+                        Number of workers. If 0, It generates data in the main process. [default: 0]
+  -v, --verbose         Print error messages while generating data.
+```
+
+### Examples
+
+#### SynthTIGER text images
+
+```bash
+# horizontal
+python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_horizontal.yaml
+
+# vertical
+python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
+```
+
+<img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
+
+#### Multiline text images
+
+```bash
+python gen.py -o results -w 4 -v examples/multiline/template.py Multiline examples/multiline/config.yaml
+```
+
+<img src="https://user-images.githubusercontent.com/12423224/153699088-cdeb3eb3-e117-4959-abf4-8454ad95d886.png" width="75%"/>
+
+## Advanced Usage
+
+### Non-Latin language data generation
+
+<img src="https://user-images.githubusercontent.com/12423224/153699092-c96743d2-9499-4f20-bea1-b7654578b7fa.png" width="40%"/>
+
+1. Prepare corpus
+
+   `txt` format, line by line. ([example](resources/corpus/mjsynth.txt))
+
+2. Prepare fonts
+
+   See [font customization](#font-customization) for more details.
+
+3. Edit corpus path and font path in config file
+
+4. Run gen.py
+
+### Font customization
+
+1. Prepare fonts
+
+   `ttf`/`otf` format. ([example](resources/font))
+
+2. Extract renderable charsets
+
+   ```bash
+   python tools/extract_font_charset.py -w 4 fonts/
+   ```
+
+   This script extracts renderable charsets for all font files. ([example](resources/font/Ubuntu-Regular.txt))
+
+   Text files are generated in the input path with the same names as the fonts.
+
+3. Edit font path in config file
+
+4. Run gen.py
+
+### Colormap customization
+
+1. Prepare images
+
+   `jpg`/`jpeg`/`png`/`bmp` format.
+
+2. Create colormaps
+
+   ```bash
+   python tools/create_colormap.py --max_k 3 -w 4 images/ colormap.txt
+   ```
+
+   This script creates colormaps for all image files. ([example](resources/colormap/iiit5k_gray.txt))
+
+3. Edit colormap path in config file
+
+4. Run gen.py
+
+### Template customization
+
+You can implement custom templates by inheriting the base template.
+
+```python
+from synthtiger import templates
+
+
+class MyTemplate(templates.Template):
+    def __init__(self, config=None):
+        # initialize template.
+
+    def generate(self):
+        # generate data.
+
+    def init_save(self, root):
+        # initialize something before save.
+
+    def save(self, root, data, idx):
+        # save data to specific path.
+
+    def end_save(self, root):
+        # finalize something after save.
+```
 
 ## Datasets
 
@@ -88,112 +224,9 @@ images/999/9999998.jpg	STUFFIER
 images/999/9999999.jpg	Re:
 ```
 
-## Documentation
-
-The documentation is available at <https://clovaai.github.io/synthtiger/>.
-
-You can check API reference in this documentation.
-
-## Usage
-
-```bash
-# for macOS
-$ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-# install python packages
-$ pip install -r requirements.txt
-
-$ python gen.py --template TEMPLATE
-                --config CONFIG
-                --output OUTPUT
-                [--count COUNT]
-                [--worker WORKER]
-```
-
-### Requirements
-
-- python >= 3.6
-- libraqm
-
-### Parameters
-
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| template | ```string``` | | Template module path |
-| config | ```string``` | | Config file path |
-| output | ```string``` | | Folder path to save data |
-| count | ```integer``` | ```100``` | Number of data |
-| worker | ```integer``` | ```1``` | Number of workers |
-
-### Examples
-
-#### Default text images
-
-```bash
-# horizontal
-python gen.py --template templates/default.py --config templates/default_horizontal.yaml --output results --worker 4
-
-# vertical
-python gen.py --template templates/default.py --config templates/default_vertical.yaml --output results --worker 4
-```
-
-<img src="imgs/default.png" width="50%"/>
-
-#### Multiline text images
-
-```bash
-python gen.py --template templates/multiline.py --config templates/multiline.yaml --output results --worker 4
-```
-
-<img src="imgs/multiline.png" width="75%"/>
-
-## Advanced Usage
-
-### Non-Latin language data generation
-
-<img src="imgs/non-latin.png" width="40%"/>
-
-1. Prepare corpus and fonts
-
-   corpus - txt file, line by line ([example](resources/corpus/mjsynth.txt))
-
-   font - ttf/otf file ([example](resources/font))
-
-2. Extract renderable charsets
-
-   ```bash
-   python tools/extract_font_charset.py --input fonts --worker 4
-   ```
-
-   This script extracts renderable charsets for all font files. ([example](resources/font/Ubuntu-Regular.txt))
-
-   Text files are generated in the input path with the same names as the fonts.
-
-3. Edit corpus path and font path in config file
-
-4. Run gen.py
-
-### Colormap customization
-
-1. Prepare images
-
-   image - jpg/jpeg/png/bmp file
-
-2. Create colormaps
-
-   ```bash
-   python tools/create_colormap.py --input images --output colormap.txt --worker 4
-   ```
-
-   This script creates colormaps for all image files. ([example](resources/colormap/iiit5k_gray.txt))
-
-3. Edit colormap path in config file
-
-4. Run gen.py
-
 ## Citation
 
-```
+```bibtex
 @inproceedings{yim2021synthtiger,
   title={SynthTIGER: Synthetic Text Image GEneratoR Towards Better Text Recognition Models},
   author={Yim, Moonbin and Kim, Yoonsik and Cho, Han-Cheol and Park, Sungrae},
@@ -230,6 +263,7 @@ THE SOFTWARE.
 ```
 
 The following directories and their subdirectories are licensed the same as their origins. Please refer to [NOTICE](NOTICE)
+
 ```
 docs/
 resources/font/

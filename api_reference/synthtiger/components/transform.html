@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transformation components &mdash; SynthTIGER  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Color components" href="color.html" />
+    <link rel="prev" title="Layout components" href="layout.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SynthTIGER
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">SynthTIGER</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Components</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="component.html">Base component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="corpus.html">Corpus components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="font.html">Font components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="texture.html">Texture components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="layout.html">Layout components</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Transformation components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="color.html">Color components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text_effect.html">Text effect components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_effect.html">Image effect components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="wrapper.html">Wrapper components</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../layers/index.html">Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../templates/index.html">Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../utils/image_util.html">Image util</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/file_util.html">File util</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/unicode_util.html">Unicode util</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SynthTIGER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">API Reference</a> &raquo;</li>
+          <li><a href="../index.html">SynthTIGER</a> &raquo;</li>
+          <li><a href="index.html">Components</a> &raquo;</li>
+      <li>Transformation components</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/clovaai/synthtiger/blob/master/docs/api_reference/synthtiger/components/transform.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-synthtiger.components.transform">
+<span id="transformation-components"></span><h1>Transformation components<a class="headerlink" href="#module-synthtiger.components.transform" title="Permalink to this headline"></a></h1>
+<p>SynthTIGER
+Copyright (c) 2021-present NAVER Corp.
+MIT license</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Align">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Align</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aligns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">((-</span> <span class="pre">1,</span> <span class="pre">1),</span> <span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Align" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Align.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Align.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Align.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Align.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Crop">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Crop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aligns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">((-</span> <span class="pre">1,</span> <span class="pre">1),</span> <span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Crop" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Crop.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Crop.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Crop.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Crop.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Fit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Fit" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Fit.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Fit.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Fit.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Fit.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Pad">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Pad" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Pad.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Pad.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Pad.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Pad.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Perspective">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Perspective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aligns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">((-</span> <span class="pre">1,</span> <span class="pre">1),</span> <span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1),</span> <span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1),</span> <span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Perspective" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Perspective.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Perspective.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Perspective.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Perspective.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Rotate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">45,</span> <span class="pre">45)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ccw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Rotate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Rotate.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Rotate.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Rotate.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Rotate.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Skew">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Skew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">30,</span> <span class="pre">30)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ccw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Skew" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Skew.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Skew.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Skew.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Skew.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Translate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Translate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Translate.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Translate.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Translate.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Translate.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Trapezoidate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthtiger.components.transform.</span></span><span class="sig-name descname"><span class="pre">Trapezoidate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Trapezoidate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="component.html#synthtiger.components.component.Component" title="synthtiger.components.component.Component"><code class="xref py py-class docutils literal notranslate"><span class="pre">synthtiger.components.component.Component</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Trapezoidate.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Trapezoidate.sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthtiger.components.transform.Trapezoidate.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthtiger.components.transform.Trapezoidate.apply" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="layout.html" class="btn btn-neutral float-left" title="Layout components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="color.html" class="btn btn-neutral float-right" title="Color components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Clova AI Research, NAVER Corp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

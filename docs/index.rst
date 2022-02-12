@@ -1,12 +1,12 @@
 SynthTIGER
 ==========
 
-SynthTIGER is synthetic text image generator for ocr recognition.
+SynthTIGER is synthetic text image generator for OCR model.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   documentation/index
+   api_reference/index
 
 Indices and tables
 ==================

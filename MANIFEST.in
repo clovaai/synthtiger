@@ -1,0 +1,4 @@
+include LICENSE NOTICE README.md
+recursive-include synthtiger *.txt
+global-exclude *.py[cod] .DS_Store
+prune tests

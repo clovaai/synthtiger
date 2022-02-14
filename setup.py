@@ -29,7 +29,7 @@ setup(
     author="Moonbin Yim, Yoonsik Kim, Han-Cheol Cho, Sungrae Park",
     url="https://github.com/clovaai/synthtiger",
     license="MIT",
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     python_requires=">=3.6",
     install_requires=[
@@ -47,7 +47,6 @@ setup(
         "regex",
         "scipy",
     ],
-    zip_safe=False,
     entry_points={
         "console_scripts": [
             "synthtiger = synthtiger.main:main",

@@ -10,7 +10,7 @@ SynthTIGER is synthetic text image generator for OCR model.
 
 - [Updates](#updates)
 - [Documentation](#documentation)
-- [Prerequisites](#prerequisites)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
 - [Datasets](#datasets)
@@ -27,14 +27,14 @@ The documentation is available at <https://clovaai.github.io/synthtiger/>.
 
 You can check API reference in this documentation.
 
-## Prerequisites
+## Installation
 
 SynthTIGER requires `python>=3.6` and `libraqm`. If you want install dependencies, see [dependencies](depends).
 
-Run following command before use it.
+To install SynthTIGER from PyPI:
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install synthtiger
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
 
 ```
-usage: gen.py [-h] [-o PATH] [-c INTEGER] [-w INTEGER] [-v] SCRIPT NAME [CONFIG]
+usage: synthtiger [-h] [-o PATH] [-c INTEGER] [-w INTEGER] [-v] SCRIPT NAME [CONFIG]
 
 positional arguments:
   SCRIPT                Script file path.
@@ -69,10 +69,10 @@ optional arguments:
 
 ```bash
 # horizontal
-python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_horizontal.yaml
+synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_horizontal.yaml
 
 # vertical
-python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
+synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
@@ -80,7 +80,7 @@ python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger exam
 #### Multiline text images
 
 ```bash
-python gen.py -o results -w 4 -v examples/multiline/template.py Multiline examples/multiline/config.yaml
+synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/multiline/config.yaml
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699088-cdeb3eb3-e117-4959-abf4-8454ad95d886.png" width="75%"/>

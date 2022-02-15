@@ -19,8 +19,8 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "SynthTIGER"
-copyright = "2021, Clova AI Research, NAVER Corp"
-author = "Clova AI Research, NAVER Corp"
+copyright = "2021, Clova AI Research, NAVER Corp."
+author = "Clova AI Research, NAVER Corp."
 
 
 # -- General configuration ---------------------------------------------------

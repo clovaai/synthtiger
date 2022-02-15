@@ -67,7 +67,7 @@ html_theme_options = {
         "color-api-name": "#d2a8ff",
         "color-api-overall": "#c9d1d9",
         "color-link": "#c9d1d9",
-    }
+    },
 }
 html_title = project
 

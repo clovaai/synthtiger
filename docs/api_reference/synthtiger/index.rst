@@ -4,7 +4,6 @@ SynthTIGER
 .. automodule:: synthtiger
    :members:
    :undoc-members:
-   :show-inheritance:
 
 .. toctree::
    components/index

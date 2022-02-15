@@ -14,7 +14,6 @@ SynthTIGER is synthetic text image generator for OCR model.
 
 ## Contents
 
-- [Updates](#updates)
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -22,10 +21,6 @@ SynthTIGER is synthetic text image generator for OCR model.
 - [Datasets](#datasets)
 - [Citation](#citation)
 - [License](#license)
-
-## Updates
-
-**Oct 23, 2021**: Dataset was split into several smaller files.
 
 ## Documentation
 

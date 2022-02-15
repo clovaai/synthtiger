@@ -1,5 +1,11 @@
 # 🐯 SynthTIGER: Synthetic Text Image Generator
 
+[![PyPI version](https://img.shields.io/pypi/v/synthtiger)](https://pypi.org/project/synthtiger/)
+[![CI](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml/badge.svg)](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml)
+[![Docs](https://github.com/clovaai/synthtiger/actions/workflows/docs.yml/badge.svg)](https://github.com/clovaai/synthtiger/actions/workflows/docs.yml)
+[![License](https://img.shields.io/github/license/clovaai/synthtiger)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 [Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
 
 SynthTIGER is synthetic text image generator for OCR model.
@@ -8,18 +14,13 @@ SynthTIGER is synthetic text image generator for OCR model.
 
 ## Contents
 
-- [Updates](#updates)
 - [Documentation](#documentation)
-- [Prerequisites](#prerequisites)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
 - [Datasets](#datasets)
 - [Citation](#citation)
 - [License](#license)
-
-## Updates
-
-**Oct 23, 2021**: Dataset was split into several smaller files.
 
 ## Documentation
 
@@ -27,14 +28,14 @@ The documentation is available at <https://clovaai.github.io/synthtiger/>.
 
 You can check API reference in this documentation.
 
-## Prerequisites
+## Installation
 
 SynthTIGER requires `python>=3.6` and `libraqm`. If you want install dependencies, see [dependencies](depends).
 
-Run following command before use it.
+To install SynthTIGER from PyPI:
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install synthtiger
 ```
 
 ## Usage
@@ -45,7 +46,7 @@ $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
 
 ```
-usage: gen.py [-h] [-o PATH] [-c INTEGER] [-w INTEGER] [-v] SCRIPT NAME [CONFIG]
+usage: synthtiger [-h] [-o PATH] [-c INTEGER] [-w INTEGER] [-v] SCRIPT NAME [CONFIG]
 
 positional arguments:
   SCRIPT                Script file path.
@@ -69,10 +70,10 @@ optional arguments:
 
 ```bash
 # horizontal
-python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_horizontal.yaml
+synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_horizontal.yaml
 
 # vertical
-python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
+synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
@@ -80,7 +81,7 @@ python gen.py -o results -w 4 -v examples/synthtiger/template.py SynthTiger exam
 #### Multiline text images
 
 ```bash
-python gen.py -o results -w 4 -v examples/multiline/template.py Multiline examples/multiline/config.yaml
+synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/multiline/config.yaml
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699088-cdeb3eb3-e117-4959-abf4-8454ad95d886.png" width="75%"/>

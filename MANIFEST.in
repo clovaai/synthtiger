@@ -1,0 +1,3 @@
+graft synthtiger
+global-exclude *.py[cod] .DS_Store
+prune tests

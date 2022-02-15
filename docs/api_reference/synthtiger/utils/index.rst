@@ -4,7 +4,6 @@ Utils
 .. automodule:: synthtiger.utils
    :members:
    :undoc-members:
-   :show-inheritance:
 
 .. toctree::
    :maxdepth: 2

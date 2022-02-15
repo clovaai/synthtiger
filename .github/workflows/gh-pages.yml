@@ -21,7 +21,7 @@ jobs:
     - name: Install requirements
       run: pip install --upgrade -r requirements.txt
     - name: Install sphinx
-      run: pip install --upgrade sphinx sphinx-rtd-theme
+      run: pip install --upgrade sphinx furo
     - name: Build docs
       run: make -C docs clean html
     - name: Deploy docs

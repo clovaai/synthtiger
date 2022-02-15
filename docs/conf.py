@@ -19,8 +19,8 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "SynthTIGER"
-copyright = "2021, Clova AI Research, NAVER Corp"
-author = "Clova AI Research, NAVER Corp"
+copyright = "2021, Clova AI Research, NAVER Corp."
+author = "Clova AI Research, NAVER Corp."
 
 
 # -- General configuration ---------------------------------------------------
@@ -52,17 +52,24 @@ autodoc_member_order = "bysource"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 html_theme_options = {
-    "collapse_navigation": False,
-    "navigation_depth": -1,
+    "light_css_variables": {
+        "color-api-keyword": "#cf222e",
+        "color-api-pre-name": "#24292f",
+        "color-api-name": "#8250df",
+        "color-api-overall": "#24292f",
+        "color-link": "#24292f",
+    },
+    "dark_css_variables": {
+        "color-api-keyword": "#ff7b72",
+        "color-api-pre-name": "#c9d1d9",
+        "color-api-name": "#d2a8ff",
+        "color-api-overall": "#c9d1d9",
+        "color-link": "#c9d1d9",
+    },
 }
-html_context = {
-    "display_github": True,
-    "github_user": "clovaai",
-    "github_repo": "synthtiger",
-    "github_version": "master/docs/",
-}
+html_title = project
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

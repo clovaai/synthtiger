@@ -5,4 +5,5 @@ brew install \
     little-cms2 \
     freetype \
     harfbuzz \
-    fribidi
+    fribidi \
+    geos

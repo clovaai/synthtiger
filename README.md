@@ -30,13 +30,15 @@ You can check API reference in this documentation.
 
 ## Installation
 
-SynthTIGER requires `python>=3.6` and `libraqm`. If you want install dependencies, see [dependencies](depends).
+SynthTIGER requires `python>=3.6` and `libraqm`.
 
 To install SynthTIGER from PyPI:
 
 ```bash
 $ pip install synthtiger
 ```
+
+If you see a dependency error when you install or run SynthTIGER, install [dependencies](depends).
 
 ## Usage
 

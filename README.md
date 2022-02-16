@@ -94,21 +94,21 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
 
 1. Prepare corpus
 
-   `txt` format, line by line. ([example](resources/corpus/mjsynth.txt))
+   `txt` format, line by line ([example](resources/corpus/mjsynth.txt)).
 
 2. Prepare fonts
 
    See [font customization](#font-customization) for more details.
 
-3. Edit corpus path and font path in config file
+3. Edit corpus path and font path in config file ([example](examples/synthtiger/config_horizontal.yaml))
 
-4. Run gen.py
+4. Run synthtiger
 
 ### Font customization
 
 1. Prepare fonts
 
-   `ttf`/`otf` format. ([example](resources/font))
+   `ttf`/`otf` format ([example](resources/font)).
 
 2. Extract renderable charsets
 
@@ -116,13 +116,13 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
    python tools/extract_font_charset.py -w 4 fonts/
    ```
 
-   This script extracts renderable charsets for all font files. ([example](resources/font/Ubuntu-Regular.txt))
+   This script extracts renderable charsets for all font files ([example](resources/font/Ubuntu-Regular.txt)).
 
    Text files are generated in the input path with the same names as the fonts.
 
-3. Edit font path in config file
+3. Edit font path in config file ([example](examples/synthtiger/config_horizontal.yaml))
 
-4. Run gen.py
+4. Run synthtiger
 
 ### Colormap customization
 
@@ -136,11 +136,11 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
    python tools/create_colormap.py --max_k 3 -w 4 images/ colormap.txt
    ```
 
-   This script creates colormaps for all image files. ([example](resources/colormap/iiit5k_gray.txt))
+   This script creates colormaps for all image files ([example](resources/colormap/iiit5k_gray.txt)).
 
-3. Edit colormap path in config file
+3. Edit colormap path in config file ([example](examples/synthtiger/config_horizontal.yaml))
 
-4. Run gen.py
+4. Run synthtiger
 
 ### Template customization
 

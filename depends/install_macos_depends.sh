@@ -1,3 +1,8 @@
+#!/bin/bash
+set -euxo pipefail
+
+# Pillow
+
 brew install \
     libtiff \
     libjpeg \

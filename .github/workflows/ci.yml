@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.6', '3.7', '3.8', '3.9']
+        python: ['3.6', '3.7', '3.8', '3.9', '3.10']
       fail-fast: false
     steps:
     - name: Checkout
@@ -123,7 +123,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        python: ['3.6', '3.7', '3.8', '3.9']
+        python: ['3.6', '3.7', '3.8', '3.9', '3.10']
       fail-fast: false
     steps:
     - name: Checkout
@@ -147,17 +147,17 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python: ['3.6', '3.7', '3.8', '3.9']
+        python: ['3.6', '3.7', '3.8', '3.9', '3.10']
       fail-fast: false
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
+    - name: Add MSYS2 MinGW path
+      run: echo "D:\a\_temp\msys64\mingw64\bin" >> $env:GITHUB_PATH
     - name: Install dependencies
       run: msys2 depends/install_windows_depends.sh
-    - name: Add dependency path
-      run: echo "D:\a\_temp\msys64\mingw64\bin" >> $env:GITHUB_PATH
     - name: Set up Python
       uses: actions/setup-python@v2
       with:

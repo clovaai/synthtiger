@@ -39,14 +39,14 @@ def parse_args():
     parser.add_argument(
         "-o",
         "--output",
-        metavar="PATH",
+        metavar="DIR",
         type=str,
         help="Directory path to save data.",
     )
     parser.add_argument(
         "-c",
         "--count",
-        metavar="INTEGER",
+        metavar="NUM",
         type=int,
         default=100,
         help="Number of data. [default: 100]",
@@ -54,7 +54,7 @@ def parse_args():
     parser.add_argument(
         "-w",
         "--worker",
-        metavar="INTEGER",
+        metavar="NUM",
         type=int,
         default=0,
         help="Number of workers. If 0, It generates data in the main process. [default: 0]",

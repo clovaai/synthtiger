@@ -138,7 +138,7 @@ def parse_args():
     parser.add_argument(
         "-w",
         "--worker",
-        metavar="INTEGER",
+        metavar="NUM",
         type=int,
         default=1,
         help="Number of workers. [default: 1]",

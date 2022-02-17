@@ -1,3 +1,8 @@
+#!/bin/bash
+set -euxo pipefail
+
+# Pillow
+
 sudo apt install -y \
     libtiff5-dev \
     libjpeg8-dev \

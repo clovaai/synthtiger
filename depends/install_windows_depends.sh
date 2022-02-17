@@ -1,3 +1,8 @@
+#!/bin/bash
+set -euxo pipefail
+
+# Pillow
+
 pacman --noconfirm -S \
     mingw-w64-x86_64-libjpeg-turbo \
     mingw-w64-x86_64-zlib \

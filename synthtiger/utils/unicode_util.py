@@ -39,6 +39,33 @@ def _read_vert_orient():
     return data
 
 
+def _read_indic_syllabic_category():
+    root = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(root, "IndicSyllabicCategory.txt")
+    data = {}
+
+    with open(path, "r", encoding="utf-8") as fp:
+        for line in fp:
+            line = regex.sub("#.*", "", line).strip()
+            if line == "":
+                continue
+
+            code_range, value = line.split(";")
+            code_range = code_range.strip()
+            value = value.strip()
+
+            codes = code_range.split("..")
+            codes = [int(code, base=16) for code in codes]
+
+            if len(codes) == 1:
+                data[codes[0]] = value
+            if len(codes) == 2:
+                for code in range(codes[0], codes[1] + 1):
+                    data[code] = value
+
+    return data
+
+
 # vertical orientation
 # http://www.unicode.org/reports/tr50
 _VERT_ORIENT = _read_vert_orient()
@@ -55,6 +82,9 @@ _VERT_RIGHT_FLIP = [
     0xFF0E,
 ]
 
+# indic syllabic category
+_INDIC_SYLLABIC_CATEGORY = _read_indic_syllabic_category()
+
 
 def vert_orient(char):
     code = ord(char)
@@ -69,6 +99,11 @@ def vert_rot_flip(char):
 def vert_right_flip(char):
     code = ord(char)
     return code in _VERT_RIGHT_FLIP
+
+
+def indic_syllabic_category(char):
+    code = ord(char)
+    return _INDIC_SYLLABIC_CATEGORY[code] if code in _INDIC_SYLLABIC_CATEGORY else None
 
 
 def to_fullwidth(text):
@@ -119,7 +154,16 @@ def split_text(text, reorder=False, groups=None):
         if token in groups:
             chars.append(token)
         else:
-            chars.extend(regex.findall(r"\X", token))
+            graphemes = regex.findall(r"\X", token)
+            start = 0
+
+            for end in range(1, len(graphemes)):
+                category = indic_syllabic_category(graphemes[end - 1][-1])
+                if category not in ["Virama", "Invisible_Stacker", "Number_Joiner"]:
+                    chars.append("".join(graphemes[start:end]))
+                    start = end
+
+            chars.append("".join(graphemes[start:]))
 
     return chars
 

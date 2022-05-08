@@ -89,7 +89,7 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
 
 ### Non-Latin language data generation
 
-<img src="https://user-images.githubusercontent.com/12423224/153699092-c96743d2-9499-4f20-bea1-b7654578b7fa.png" width="40%"/>
+<img src="https://user-images.githubusercontent.com/12423224/167302532-dbd5fa60-bcba-4f77-92ee-58bb6efda51c.png" width="40%"/>
 
 1. Prepare corpus
 

@@ -14,36 +14,61 @@ import regex
 
 def _read_vert_orient():
     root = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(root, "VerticalOrientation.txt")
     data = {}
 
-    with open(os.path.join(root, _VERT_ORIENT_PATH), "r", encoding="utf-8") as fp:
+    with open(path, "r", encoding="utf-8") as fp:
         for line in fp:
-            line = line.strip()
-            if line.startswith("#") or line == "":
+            line = regex.sub("#.*", "", line).strip()
+            if line == "":
                 continue
 
-            unicode_range, value = line.split(";")
-            unicode_range = unicode_range.strip()
+            code_range, value = line.split(";")
+            code_range = code_range.strip()
             value = value.strip()
 
-            unicodes = unicode_range.split("..")
-            unicodes = [int(unicode, base=16) for unicode in unicodes]
+            codes = code_range.split("..")
+            codes = [int(code, base=16) for code in codes]
 
-            if len(unicodes) == 1:
-                data[unicodes[0]] = value
-
-            elif len(unicodes) == 2:
-                for unicode in range(unicodes[0], unicodes[1] + 1):
-                    data[unicode] = value
+            if len(codes) == 1:
+                data[codes[0]] = value
+            if len(codes) == 2:
+                for code in range(codes[0], codes[1] + 1):
+                    data[code] = value
 
     return data
 
 
-# https://unicode.org/Public/vertical
-_VERT_ORIENT_PATH = "VerticalOrientation-17.txt"
-_VERT_ORIENT = _read_vert_orient()
+def _read_indic_syllabic_category():
+    root = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(root, "IndicSyllabicCategory.txt")
+    data = {}
 
+    with open(path, "r", encoding="utf-8") as fp:
+        for line in fp:
+            line = regex.sub("#.*", "", line).strip()
+            if line == "":
+                continue
+
+            code_range, value = line.split(";")
+            code_range = code_range.strip()
+            value = value.strip()
+
+            codes = code_range.split("..")
+            codes = [int(code, base=16) for code in codes]
+
+            if len(codes) == 1:
+                data[codes[0]] = value
+            if len(codes) == 2:
+                for code in range(codes[0], codes[1] + 1):
+                    data[code] = value
+
+    return data
+
+
+# vertical orientation
 # http://www.unicode.org/reports/tr50
+_VERT_ORIENT = _read_vert_orient()
 _VERT_ROT_FLIP = [0x301C, 0x301E, 0x3030, 0x30FC, 0xFF5E]
 _VERT_RIGHT_FLIP = [
     0x3001,
@@ -57,20 +82,28 @@ _VERT_RIGHT_FLIP = [
     0xFF0E,
 ]
 
+# indic syllabic category
+_INDIC_SYLLABIC_CATEGORY = _read_indic_syllabic_category()
+
 
 def vert_orient(char):
-    unicode = ord(char)
-    return _VERT_ORIENT[unicode] if unicode in _VERT_ORIENT else "R"
+    code = ord(char)
+    return _VERT_ORIENT[code] if code in _VERT_ORIENT else "R"
 
 
 def vert_rot_flip(char):
-    unicode = ord(char)
-    return unicode in _VERT_ROT_FLIP
+    code = ord(char)
+    return code in _VERT_ROT_FLIP
 
 
 def vert_right_flip(char):
-    unicode = ord(char)
-    return unicode in _VERT_RIGHT_FLIP
+    code = ord(char)
+    return code in _VERT_RIGHT_FLIP
+
+
+def indic_syllabic_category(char):
+    code = ord(char)
+    return _INDIC_SYLLABIC_CATEGORY[code] if code in _INDIC_SYLLABIC_CATEGORY else None
 
 
 def to_fullwidth(text):
@@ -121,7 +154,16 @@ def split_text(text, reorder=False, groups=None):
         if token in groups:
             chars.append(token)
         else:
-            chars.extend(regex.findall(r"\X", token))
+            graphemes = regex.findall(r"\X", token)
+            start = 0
+
+            for end in range(1, len(graphemes)):
+                category = indic_syllabic_category(graphemes[end - 1][-1])
+                if category not in ["Virama", "Invisible_Stacker", "Number_Joiner"]:
+                    chars.append("".join(graphemes[start:end]))
+                    start = end
+
+            chars.append("".join(graphemes[start:]))
 
     return chars
 

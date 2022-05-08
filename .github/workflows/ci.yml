@@ -22,7 +22,7 @@ jobs:
     - name: Install synthtiger
       run: pip install .
     - name: Install black
-      run: pip install --upgrade black==22.1.0
+      run: pip install --upgrade black==22.3.0
     - name: Run black
       run: black --check .
 

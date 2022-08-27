@@ -106,7 +106,7 @@ class SynthTiger(templates.Template):
         midground = np.random.rand() < self.midground
         fg_color, mg_color, bg_color, fg_style, mg_style = self._generate_color()
 
-        fg_image, label = self._generate_fg(fg_color, fg_style)
+        fg_image, label, mask, quads = self._generate_fg(fg_color, fg_style)
         bg_image = self._generate_bg(fg_image.shape[:2][::-1], bg_color)
 
         if midground:
@@ -125,6 +125,8 @@ class SynthTiger(templates.Template):
             "image": image,
             "label": label,
             "quality": quality,
+            "mask": mask,
+            "quads": quads,
         }
 
         return data
@@ -132,25 +134,39 @@ class SynthTiger(templates.Template):
     def init_save(self, root):
         os.makedirs(root, exist_ok=True)
         gt_path = os.path.join(root, "gt.txt")
+        coords_path = os.path.join(root, "coords.txt")
         self.gt_file = open(gt_path, "w", encoding="utf-8")
+        self.coords_file = open(coords_path, "w", encoding="utf-8")
 
     def save(self, root, data, idx):
         image = data["image"]
         label = data["label"]
         quality = data["quality"]
+        mask = data["mask"]
+        quads = data["quads"]
 
         shard = str(idx // 10000)
         image_key = os.path.join("images", shard, f"{idx}.jpg")
+        mask_key = os.path.join("masks", shard, f"{idx}.png")
         image_path = os.path.join(root, image_key)
+        mask_path = os.path.join(root, mask_key)
 
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
-        image = Image.fromarray(image[..., :3].astype(np.uint8))
-        image.save(image_path, quality=quality)
+        os.makedirs(os.path.dirname(mask_path), exist_ok=True)
+        out = Image.fromarray(image[..., :3].astype(np.uint8))
+        out = Image.fromarray(mask.astype(np.uint8))
+        out.save(image_path, quality=quality)
+        out.save(mask_path)
+
+        coords = [quad.reshape(-1).astype(int).tolist() for quad in quads]
+        coords = "\t".join([",".join(map(str, coord)) for coord in coords])
 
         self.gt_file.write(f"{image_key}\t{label}\n")
+        self.coords_file.write(f"{image_key}\t{coords}\n")
 
     def end_save(self, root):
         self.gt_file.close()
+        self.coords_file.close()
 
     def _generate_color(self):
         mg_color = self.color.sample()
@@ -178,16 +194,29 @@ class SynthTiger(templates.Template):
         self.shape.apply(char_layers)
         self.layout.apply(char_layers, {"meta": {"vertical": self.vertical}})
 
-        layer = layers.Group(char_layers).merge()
-        self.color.apply([layer], color)
-        self.texture.apply([layer])
-        self.style.apply([layer], style)
-        self.transform.apply([layer])
-        self.fit.apply([layer])
-        self.pad.apply([layer])
-        out = layer.output()
+        text_layer = layers.Group(char_layers).merge()
+        mask_layer = text_layer.copy()
+        transform = self.transform.sample()
 
-        return out, label
+        self.color.apply([text_layer], color)
+        self.texture.apply([text_layer])
+        self.style.apply([text_layer], style)
+        self.style.apply(char_layers, style)
+        self.transform.apply([text_layer], transform)
+        self.transform.apply([mask_layer], transform)
+        self.transform.apply(char_layers, transform)
+        self.fit.apply([text_layer])
+        self.fit.apply(char_layers)
+        self.pad.apply([text_layer])
+
+        for char_layer in char_layers:
+            char_layer.topleft -= text_layer.topleft
+
+        out = text_layer.output()
+        mask = mask_layer.output(bbox=text_layer.bbox)
+        quads = [char_layer.quad for char_layer in char_layers]
+
+        return out, label, mask, quads
 
     def _generate_mg(self, color, style, mask):
         label = self.corpus.data(self.corpus.sample())

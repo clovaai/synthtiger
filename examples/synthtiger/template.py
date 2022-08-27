@@ -110,8 +110,8 @@ class SynthTiger(templates.Template):
         bg_image = self._generate_bg(fg_image.shape[:2][::-1], bg_color)
 
         if midground:
-            fg_mask = _create_mask(fg_image, self.foreground_mask_pad)
-            mg_image, _ = self._generate_mg(mg_color, mg_style, fg_mask)
+            poly_mask = _create_poly_mask(fg_image, self.foreground_mask_pad)
+            mg_image, _ = self._generate_mg(mg_color, mg_style, poly_mask)
             bg_image = _blend_images(
                 mg_image, bg_image, visibility_check=self.visibility_check
             )
@@ -153,10 +153,10 @@ class SynthTiger(templates.Template):
 
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
         os.makedirs(os.path.dirname(mask_path), exist_ok=True)
-        out = Image.fromarray(image[..., :3].astype(np.uint8))
-        out = Image.fromarray(mask.astype(np.uint8))
-        out.save(image_path, quality=quality)
-        out.save(mask_path)
+        image = Image.fromarray(image[..., :3].astype(np.uint8))
+        mask = Image.fromarray(mask[..., 3].astype(np.uint8))
+        image.save(image_path, quality=quality)
+        mask.save(mask_path)
 
         coords = [quad.reshape(-1).astype(int).tolist() for quad in quads]
         coords = "\t".join([",".join(map(str, coord)) for coord in coords])
@@ -231,20 +231,20 @@ class SynthTiger(templates.Template):
         self.shape.apply(char_layers)
         self.layout.apply(char_layers, {"meta": {"vertical": self.vertical}})
 
-        layer = layers.Group(char_layers).merge()
-        self.color.apply([layer], color)
-        self.texture.apply([layer])
-        self.style.apply([layer], style)
-        self.transform.apply([layer])
-        self.fit.apply([layer])
-        self.pad.apply([layer])
-        out = layer.output()
+        text_layer = layers.Group(char_layers).merge()
 
-        mask = layers.Layer(mask)
-        layer = layers.Layer(out)
-        layer.bbox = mask.bbox
-        self.midground_offset.apply([layer])
-        out = layer.erase(mask).output(bbox=mask.bbox)
+        self.color.apply([text_layer], color)
+        self.texture.apply([text_layer])
+        self.style.apply([text_layer], style)
+        self.transform.apply([text_layer])
+        self.fit.apply([text_layer])
+        self.pad.apply([text_layer])
+
+        mask_layer = layers.Layer(mask)
+        text_layer = layers.Layer(text_layer.output())
+        text_layer.bbox = mask_layer.bbox
+        self.midground_offset.apply([text_layer])
+        out = text_layer.erase(mask_layer).output(bbox=mask_layer.bbox)
 
         return out, label
 
@@ -309,7 +309,7 @@ def _check_visibility(image, mask):
     return total > 0 and count <= total * 0.1
 
 
-def _create_mask(image, pad=0):
+def _create_poly_mask(image, pad=0):
     height, width = image.shape[:2]
     alpha = image[..., 3].astype(np.uint8)
     mask = np.zeros((height, width), dtype=np.float32)

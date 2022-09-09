@@ -119,7 +119,7 @@ class SynthTiger(templates.Template):
         image = _blend_images(
             fg_image, bg_image, visibility_check=self.visibility_check
         )
-        image = self._postprocess_image(image)
+        image, mask = self._postprocess_image(image, mask)
 
         data = {
             "image": image,
@@ -255,11 +255,13 @@ class SynthTiger(templates.Template):
         out = layer.output()
         return out
 
-    def _postprocess_image(self, image):
+    def _postprocess_image(self, image, mask):
         layer = layers.Layer(image)
-        self.postprocess.apply([layer])
+        mask_layer = layers.Layer(mask)
+        self.postprocess.apply([layer, mask_layer])
         out = layer.output()
-        return out
+        mask = mask_layer.output()
+        return out, mask
 
 
 def _blend_images(src, dst, blend_mode=None, visibility_check=False):

@@ -104,21 +104,17 @@ class SynthTiger(templates.Template):
     def generate(self):
         quality = np.random.randint(self.quality[0], self.quality[1] + 1)
         midground = np.random.rand() < self.midground
-        fg_color, mg_color, bg_color, fg_style, mg_style = self._generate_color()
+        fg_color, fg_style, mg_color, mg_style, bg_color = self._generate_color()
 
-        fg_image, label, mask, bboxes = self._generate_fg(fg_color, fg_style)
-        bg_image = self._generate_bg(fg_image.shape[:2][::-1], bg_color)
+        fg_image, label, mask, bboxes = self._generate_text(fg_color, fg_style)
+        bg_image = self._generate_background(fg_image.shape[:2][::-1], bg_color)
 
         if midground:
-            poly_mask = _create_poly_mask(fg_image, self.foreground_mask_pad)
-            mg_image, _ = self._generate_mg(mg_color, mg_style, poly_mask)
-            bg_image = _blend_images(
-                mg_image, bg_image, visibility_check=self.visibility_check
-            )
+            mg_image, _, _, _ = self._generate_text(mg_color, mg_style)
+            mg_image = self._mask_image(mg_image, fg_image)
+            bg_image = _blend_images(mg_image, bg_image, self.visibility_check)
 
-        image = _blend_images(
-            fg_image, bg_image, visibility_check=self.visibility_check
-        )
+        image = _blend_images(fg_image, bg_image, self.visibility_check)
         image, mask = self._postprocess_image(image, mask)
 
         data = {
@@ -179,9 +175,9 @@ class SynthTiger(templates.Template):
         else:
             fg_color, bg_color = self.colormap2.sample()
 
-        return fg_color, mg_color, bg_color, fg_style, mg_style
+        return fg_color, fg_style, mg_color, mg_style, bg_color
 
-    def _generate_fg(self, color, style):
+    def _generate_text(self, color, style):
         label = self.corpus.data(self.corpus.sample())
 
         # for script using diacritic, ligature and RTL
@@ -218,41 +214,20 @@ class SynthTiger(templates.Template):
 
         return out, label, mask, bboxes
 
-    def _generate_mg(self, color, style, mask):
-        label = self.corpus.data(self.corpus.sample())
-
-        # for script using diacritic, ligature and RTL
-        chars = utils.split_text(label, reorder=True)
-
-        text = "".join(chars)
-        font = self.font.sample({"text": text, "vertical": self.vertical})
-
-        char_layers = [layers.TextLayer(char, **font) for char in chars]
-        self.shape.apply(char_layers)
-        self.layout.apply(char_layers, {"meta": {"vertical": self.vertical}})
-
-        text_layer = layers.Group(char_layers).merge()
-
-        self.color.apply([text_layer], color)
-        self.texture.apply([text_layer])
-        self.style.apply([text_layer], style)
-        self.transform.apply([text_layer])
-        self.fit.apply([text_layer])
-        self.pad.apply([text_layer])
-
-        mask_layer = layers.Layer(mask)
-        text_layer = layers.Layer(text_layer.output())
-        text_layer.bbox = mask_layer.bbox
-        self.midground_offset.apply([text_layer])
-        out = text_layer.erase(mask_layer).output(bbox=mask_layer.bbox)
-
-        return out, label
-
-    def _generate_bg(self, size, color):
+    def _generate_background(self, size, color):
         layer = layers.RectLayer(size)
         self.color.apply([layer], color)
         self.texture.apply([layer])
         out = layer.output()
+        return out
+
+    def _mask_image(self, image, mask):
+        mask = _create_poly_mask(mask, self.foreground_mask_pad)
+        mask_layer = layers.Layer(mask)
+        layer = layers.Layer(image)
+        layer.bbox = mask_layer.bbox
+        self.midground_offset.apply([layer])
+        out = layer.erase(mask_layer).output(bbox=mask_layer.bbox)
         return out
 
     def _postprocess_image(self, image, mask):
@@ -264,11 +239,8 @@ class SynthTiger(templates.Template):
         return out, mask
 
 
-def _blend_images(src, dst, blend_mode=None, visibility_check=False):
-    if blend_mode is not None:
-        blend_modes = [blend_mode]
-    else:
-        blend_modes = np.random.permutation(BLEND_MODES)
+def _blend_images(src, dst, visibility_check=False):
+    blend_modes = np.random.permutation(BLEND_MODES)
 
     for blend_mode in blend_modes:
         out = utils.blend_image(src, dst, mode=blend_mode)

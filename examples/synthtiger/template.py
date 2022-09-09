@@ -106,7 +106,7 @@ class SynthTiger(templates.Template):
         midground = np.random.rand() < self.midground
         fg_color, mg_color, bg_color, fg_style, mg_style = self._generate_color()
 
-        fg_image, label, mask, quads = self._generate_fg(fg_color, fg_style)
+        fg_image, label, mask, bboxes = self._generate_fg(fg_color, fg_style)
         bg_image = self._generate_bg(fg_image.shape[:2][::-1], bg_color)
 
         if midground:
@@ -126,7 +126,7 @@ class SynthTiger(templates.Template):
             "label": label,
             "quality": quality,
             "mask": mask,
-            "quads": quads,
+            "bboxes": bboxes,
         }
 
         return data
@@ -143,7 +143,7 @@ class SynthTiger(templates.Template):
         label = data["label"]
         quality = data["quality"]
         mask = data["mask"]
-        quads = data["quads"]
+        bboxes = data["bboxes"]
 
         shard = str(idx // 10000)
         image_key = os.path.join("images", shard, f"{idx}.jpg")
@@ -158,8 +158,8 @@ class SynthTiger(templates.Template):
         image.save(image_path, quality=quality)
         mask.save(mask_path)
 
-        coords = [quad.reshape(-1).astype(int).tolist() for quad in quads]
-        coords = "\t".join([",".join(map(str, coord)) for coord in coords])
+        coords = [[x, y, x + w, y + h] for x, y, w, h in bboxes]
+        coords = "\t".join([",".join(map(str, map(int, coord))) for coord in coords])
 
         self.gt_file.write(f"{image_key}\t{label}\n")
         self.coords_file.write(f"{image_key}\t{coords}\n")
@@ -214,9 +214,9 @@ class SynthTiger(templates.Template):
 
         out = text_layer.output()
         mask = mask_layer.output(bbox=text_layer.bbox)
-        quads = [char_layer.quad for char_layer in char_layers]
+        bboxes = [char_layer.bbox for char_layer in char_layers]
 
-        return out, label, mask, quads
+        return out, label, mask, bboxes
 
     def _generate_mg(self, color, style, mask):
         label = self.corpus.data(self.corpus.sample())

@@ -196,13 +196,9 @@ class SynthTiger(templates.Template):
 
         self.color.apply([text_layer], color)
         self.texture.apply([text_layer])
-        self.style.apply([text_layer], style)
-        self.style.apply(char_layers, style)
-        self.transform.apply([text_layer], transform)
-        self.transform.apply([mask_layer], transform)
-        self.transform.apply(char_layers, transform)
-        self.fit.apply([text_layer])
-        self.fit.apply(char_layers)
+        self.style.apply([text_layer, *char_layers], style)
+        self.transform.apply([text_layer, mask_layer, *char_layers], transform)
+        self.fit.apply([text_layer, *char_layers])
         self.pad.apply([text_layer])
 
         for char_layer in char_layers:

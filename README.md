@@ -75,7 +75,10 @@ synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger example
 synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
 ```
 
-<img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
+<p>
+    <img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
+    <img src="https://user-images.githubusercontent.com/12423224/189514683-af06812a-7a23-49fc-b2b2-297f072c3f06.png" width="25%"/>
+</p>
 
 #### Multiline text images
 

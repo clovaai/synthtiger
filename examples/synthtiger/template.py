@@ -106,33 +106,43 @@ class SynthTiger(templates.Template):
         midground = np.random.rand() < self.midground
         fg_color, fg_style, mg_color, mg_style, bg_color = self._generate_color()
 
-        fg_image, label, mask, bboxes = self._generate_text(fg_color, fg_style)
+        fg_image, label, bboxes, glyph_fg_image, glyph_bboxes = self._generate_text(
+            fg_color, fg_style
+        )
         bg_image = self._generate_background(fg_image.shape[:2][::-1], bg_color)
 
         if midground:
-            mg_image, _, _, _ = self._generate_text(mg_color, mg_style)
-            mg_image = self._mask_image(mg_image, fg_image)
+            mg_image, _, _, _, _ = self._generate_text(mg_color, mg_style)
+            mg_image = self._erase_image(mg_image, fg_image)
             bg_image = _blend_images(mg_image, bg_image, self.visibility_check)
 
         image = _blend_images(fg_image, bg_image, self.visibility_check)
-        image, mask = self._postprocess_image(image, mask)
+        image, fg_image, glyph_fg_image = self._postprocess_images(
+            [image, fg_image, glyph_fg_image]
+        )
 
         data = {
             "image": image,
             "label": label,
             "quality": quality,
-            "mask": mask,
+            "mask": fg_image[..., 3],
             "bboxes": bboxes,
+            "glyph_mask": glyph_fg_image[..., 3],
+            "glyph_bboxes": glyph_bboxes,
         }
 
         return data
 
     def init_save(self, root):
         os.makedirs(root, exist_ok=True)
+
         gt_path = os.path.join(root, "gt.txt")
         coords_path = os.path.join(root, "coords.txt")
+        glyph_coords_path = os.path.join(root, "glyph_coords.txt")
+
         self.gt_file = open(gt_path, "w", encoding="utf-8")
         self.coords_file = open(coords_path, "w", encoding="utf-8")
+        self.glyph_coords_file = open(glyph_coords_path, "w", encoding="utf-8")
 
     def save(self, root, data, idx):
         image = data["image"]
@@ -140,29 +150,44 @@ class SynthTiger(templates.Template):
         quality = data["quality"]
         mask = data["mask"]
         bboxes = data["bboxes"]
+        glyph_mask = data["glyph_mask"]
+        glyph_bboxes = data["glyph_bboxes"]
 
         shard = str(idx // 10000)
         image_key = os.path.join("images", shard, f"{idx}.jpg")
         mask_key = os.path.join("masks", shard, f"{idx}.png")
+        glyph_mask_key = os.path.join("glyph_masks", shard, f"{idx}.png")
         image_path = os.path.join(root, image_key)
         mask_path = os.path.join(root, mask_key)
+        glyph_mask_path = os.path.join(root, glyph_mask_key)
 
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
         os.makedirs(os.path.dirname(mask_path), exist_ok=True)
+        os.makedirs(os.path.dirname(glyph_mask_path), exist_ok=True)
+
         image = Image.fromarray(image[..., :3].astype(np.uint8))
-        mask = Image.fromarray(mask[..., 3].astype(np.uint8))
+        mask = Image.fromarray(mask.astype(np.uint8))
+        glyph_mask = Image.fromarray(glyph_mask.astype(np.uint8))
+
         image.save(image_path, quality=quality)
         mask.save(mask_path)
+        glyph_mask.save(glyph_mask_path)
 
         coords = [[x, y, x + w, y + h] for x, y, w, h in bboxes]
         coords = "\t".join([",".join(map(str, map(int, coord))) for coord in coords])
+        glyph_coords = [[x, y, x + w, y + h] for x, y, w, h in glyph_bboxes]
+        glyph_coords = "\t".join(
+            [",".join(map(str, map(int, coord))) for coord in glyph_coords]
+        )
 
         self.gt_file.write(f"{image_key}\t{label}\n")
         self.coords_file.write(f"{image_key}\t{coords}\n")
+        self.glyph_coords_file.write(f"{image_key}\t{glyph_coords}\n")
 
     def end_save(self, root):
         self.gt_file.close()
         self.coords_file.close()
+        self.glyph_coords_file.close()
 
     def _generate_color(self):
         mg_color = self.color.sample()
@@ -189,26 +214,33 @@ class SynthTiger(templates.Template):
         char_layers = [layers.TextLayer(char, **font) for char in chars]
         self.shape.apply(char_layers)
         self.layout.apply(char_layers, {"meta": {"vertical": self.vertical}})
+        char_glyph_layers = [char_layer.copy() for char_layer in char_layers]
 
         text_layer = layers.Group(char_layers).merge()
-        mask_layer = text_layer.copy()
-        transform = self.transform.sample()
+        text_glyph_layer = text_layer.copy()
 
-        self.color.apply([text_layer], color)
-        self.texture.apply([text_layer])
+        transform = self.transform.sample()
+        self.color.apply([text_layer, text_glyph_layer], color)
+        self.texture.apply([text_layer, text_glyph_layer])
         self.style.apply([text_layer, *char_layers], style)
-        self.transform.apply([text_layer, mask_layer, *char_layers], transform)
-        self.fit.apply([text_layer, *char_layers])
+        self.transform.apply(
+            [text_layer, text_glyph_layer, *char_layers, *char_glyph_layers], transform
+        )
+        self.fit.apply([text_layer, text_glyph_layer, *char_layers, *char_glyph_layers])
         self.pad.apply([text_layer])
 
         for char_layer in char_layers:
             char_layer.topleft -= text_layer.topleft
+        for char_glyph_layer in char_glyph_layers:
+            char_glyph_layer.topleft -= text_layer.topleft
 
         out = text_layer.output()
-        mask = mask_layer.output(bbox=text_layer.bbox)
         bboxes = [char_layer.bbox for char_layer in char_layers]
 
-        return out, label, mask, bboxes
+        glyph_out = text_glyph_layer.output(bbox=text_layer.bbox)
+        glyph_bboxes = [char_glyph_layer.bbox for char_glyph_layer in char_glyph_layers]
+
+        return out, label, bboxes, glyph_out, glyph_bboxes
 
     def _generate_background(self, size, color):
         layer = layers.RectLayer(size)
@@ -217,22 +249,20 @@ class SynthTiger(templates.Template):
         out = layer.output()
         return out
 
-    def _mask_image(self, image, mask):
+    def _erase_image(self, image, mask):
         mask = _create_poly_mask(mask, self.foreground_mask_pad)
         mask_layer = layers.Layer(mask)
-        layer = layers.Layer(image)
-        layer.bbox = mask_layer.bbox
-        self.midground_offset.apply([layer])
-        out = layer.erase(mask_layer).output(bbox=mask_layer.bbox)
+        image_layer = layers.Layer(image)
+        image_layer.bbox = mask_layer.bbox
+        self.midground_offset.apply([image_layer])
+        out = image_layer.erase(mask_layer).output(bbox=mask_layer.bbox)
         return out
 
-    def _postprocess_image(self, image, mask):
-        layer = layers.Layer(image)
-        mask_layer = layers.Layer(mask)
-        self.postprocess.apply([layer, mask_layer])
-        out = layer.output()
-        mask = mask_layer.output()
-        return out, mask
+    def _postprocess_images(self, images):
+        image_layers = [layers.Layer(image) for image in images]
+        self.postprocess.apply(image_layers)
+        outs = [image_layer.output() for image_layer in image_layers]
+        return outs
 
 
 def _blend_images(src, dst, visibility_check=False):

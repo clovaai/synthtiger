@@ -33,6 +33,10 @@ class SynthTiger(templates.Template):
         if config is None:
             config = {}
 
+        self.coord_output = config.get("coord_output", True)
+        self.mask_output = config.get("mask_output", True)
+        self.glyph_coord_output = config.get("glyph_coord_output", True)
+        self.glyph_mask_output = config.get("glyph_mask_output", True)
         self.vertical = config.get("vertical", False)
         self.quality = config.get("quality", [95, 95])
         self.visibility_check = config.get("visibility_check", False)
@@ -141,8 +145,10 @@ class SynthTiger(templates.Template):
         glyph_coords_path = os.path.join(root, "glyph_coords.txt")
 
         self.gt_file = open(gt_path, "w", encoding="utf-8")
-        self.coords_file = open(coords_path, "w", encoding="utf-8")
-        self.glyph_coords_file = open(glyph_coords_path, "w", encoding="utf-8")
+        if self.coord_output:
+            self.coords_file = open(coords_path, "w", encoding="utf-8")
+        if self.glyph_coord_output:
+            self.glyph_coords_file = open(glyph_coords_path, "w", encoding="utf-8")
 
     def save(self, root, data, idx):
         image = data["image"]
@@ -153,6 +159,17 @@ class SynthTiger(templates.Template):
         glyph_mask = data["glyph_mask"]
         glyph_bboxes = data["glyph_bboxes"]
 
+        image = Image.fromarray(image[..., :3].astype(np.uint8))
+        mask = Image.fromarray(mask.astype(np.uint8))
+        glyph_mask = Image.fromarray(glyph_mask.astype(np.uint8))
+
+        coords = [[x, y, x + w, y + h] for x, y, w, h in bboxes]
+        coords = "\t".join([",".join(map(str, map(int, coord))) for coord in coords])
+        glyph_coords = [[x, y, x + w, y + h] for x, y, w, h in glyph_bboxes]
+        glyph_coords = "\t".join(
+            [",".join(map(str, map(int, coord))) for coord in glyph_coords]
+        )
+
         shard = str(idx // 10000)
         image_key = os.path.join("images", shard, f"{idx}.jpg")
         mask_key = os.path.join("masks", shard, f"{idx}.png")
@@ -162,32 +179,26 @@ class SynthTiger(templates.Template):
         glyph_mask_path = os.path.join(root, glyph_mask_key)
 
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
-        os.makedirs(os.path.dirname(mask_path), exist_ok=True)
-        os.makedirs(os.path.dirname(glyph_mask_path), exist_ok=True)
-
-        image = Image.fromarray(image[..., :3].astype(np.uint8))
-        mask = Image.fromarray(mask.astype(np.uint8))
-        glyph_mask = Image.fromarray(glyph_mask.astype(np.uint8))
-
         image.save(image_path, quality=quality)
-        mask.save(mask_path)
-        glyph_mask.save(glyph_mask_path)
-
-        coords = [[x, y, x + w, y + h] for x, y, w, h in bboxes]
-        coords = "\t".join([",".join(map(str, map(int, coord))) for coord in coords])
-        glyph_coords = [[x, y, x + w, y + h] for x, y, w, h in glyph_bboxes]
-        glyph_coords = "\t".join(
-            [",".join(map(str, map(int, coord))) for coord in glyph_coords]
-        )
+        if self.mask_output:
+            os.makedirs(os.path.dirname(mask_path), exist_ok=True)
+            mask.save(mask_path)
+        if self.glyph_mask_output:
+            os.makedirs(os.path.dirname(glyph_mask_path), exist_ok=True)
+            glyph_mask.save(glyph_mask_path)
 
         self.gt_file.write(f"{image_key}\t{label}\n")
-        self.coords_file.write(f"{image_key}\t{coords}\n")
-        self.glyph_coords_file.write(f"{image_key}\t{glyph_coords}\n")
+        if self.coord_output:
+            self.coords_file.write(f"{image_key}\t{coords}\n")
+        if self.glyph_coord_output:
+            self.glyph_coords_file.write(f"{image_key}\t{glyph_coords}\n")
 
     def end_save(self, root):
         self.gt_file.close()
-        self.coords_file.close()
-        self.glyph_coords_file.close()
+        if self.coord_output:
+            self.coords_file.close()
+        if self.glyph_coord_output:
+            self.glyph_coords_file.close()
 
     def _generate_color(self):
         mg_color = self.color.sample()

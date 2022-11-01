@@ -77,8 +77,15 @@ synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger example
 
 <p>
     <img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
-    <img src="https://user-images.githubusercontent.com/12423224/189514683-af06812a-7a23-49fc-b2b2-297f072c3f06.png" width="25%"/>
+    <img src="https://user-images.githubusercontent.com/12423224/199258481-5706db59-127a-4453-a8ab-4a0bb9f266d5.png" width="45%"/>
 </p>
+
+- `images`: a directory containing images.
+- `gt.txt`: a file containing text labels.
+- `coords.txt`: a file containing bounding boxes of characters with text effect.
+- `glyph_coords.txt`: a file containing bounding boxes of characters without text effect.
+- `masks`: a directory containing mask images with text effect.
+- `glyph_masks`: a directory containing mask images without text effect.
 
 #### Multiline text images
 
@@ -87,6 +94,9 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699088-cdeb3eb3-e117-4959-abf4-8454ad95d886.png" width="75%"/>
+
+- `images`: a directory containing images.
+- `gt.txt`: a file containing text labels.
 
 ## Advanced Usage
 

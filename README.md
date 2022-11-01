@@ -1,4 +1,6 @@
-# 🐯 SynthTIGER: Synthetic Text Image Generator
+<div align="center">
+
+# SynthTIGER 🐯 : Synthetic Text Image Generator
 
 [![PyPI version](https://img.shields.io/pypi/v/synthtiger)](https://pypi.org/project/synthtiger/)
 [![CI](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml/badge.svg)](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml)
@@ -6,9 +8,9 @@
 [![License](https://img.shields.io/github/license/clovaai/synthtiger)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
+Synthetic Text Image Generator for OCR Model | [Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
 
-SynthTIGER is synthetic text image generator for OCR model.
+</div>
 
 <img src="https://user-images.githubusercontent.com/12423224/153699080-29da7908-0662-4435-ba27-dd07c3bbb7f2.png"/>
 
@@ -196,10 +198,13 @@ copy /b synthtiger_v1.0.zip.* synthtiger_v1.0.zip
 **synthtiger_v1.0.zip** (36G) (md5: 5b5365f4fe15de24e403a9256079be70)
 
 - Original paper version.
+  - Used MJ and ST label.
 
 **synthtiger_v1.1.zip** (38G) (md5: b2757a7e2b5040b14ed64c473533b592)
 
-- Used MJ/ST lexicon instead of MJ/ST label.
+- Used MJ and ST lexicon instead of MJ and ST label.
+  - [resources/corpus/mjsynth.txt](resources/corpus/mjsynth.txt)
+  - [resources/corpus/synthtext.txt](resources/corpus/synthtext.txt)
 - Fixed a bug that applies transformation twice on curved text.
 - Fixed a bug that incorrectly converts grayscale to RGB.
 

@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Color components" href="color.html" /><link rel="prev" title="Layout components" href="layout.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Transformation components - SynthTIGER</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -149,7 +149,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -216,7 +216,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -224,7 +225,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -384,10 +385,10 @@ MIT license</p>
                 </div>
                 <div class="title">Color components</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="layout.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -417,8 +418,71 @@ MIT license</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Transformation components</a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Align"><code class="docutils literal notranslate"><span class="pre">Align</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Align.sample"><code class="docutils literal notranslate"><span class="pre">Align.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Align.apply"><code class="docutils literal notranslate"><span class="pre">Align.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Crop"><code class="docutils literal notranslate"><span class="pre">Crop</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Crop.sample"><code class="docutils literal notranslate"><span class="pre">Crop.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Crop.apply"><code class="docutils literal notranslate"><span class="pre">Crop.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Fit"><code class="docutils literal notranslate"><span class="pre">Fit</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Fit.sample"><code class="docutils literal notranslate"><span class="pre">Fit.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Fit.apply"><code class="docutils literal notranslate"><span class="pre">Fit.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Pad"><code class="docutils literal notranslate"><span class="pre">Pad</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Pad.sample"><code class="docutils literal notranslate"><span class="pre">Pad.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Pad.apply"><code class="docutils literal notranslate"><span class="pre">Pad.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Perspective"><code class="docutils literal notranslate"><span class="pre">Perspective</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Perspective.sample"><code class="docutils literal notranslate"><span class="pre">Perspective.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Perspective.apply"><code class="docutils literal notranslate"><span class="pre">Perspective.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Rotate"><code class="docutils literal notranslate"><span class="pre">Rotate</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Rotate.sample"><code class="docutils literal notranslate"><span class="pre">Rotate.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Rotate.apply"><code class="docutils literal notranslate"><span class="pre">Rotate.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Skew"><code class="docutils literal notranslate"><span class="pre">Skew</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Skew.sample"><code class="docutils literal notranslate"><span class="pre">Skew.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Skew.apply"><code class="docutils literal notranslate"><span class="pre">Skew.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Translate"><code class="docutils literal notranslate"><span class="pre">Translate</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Translate.sample"><code class="docutils literal notranslate"><span class="pre">Translate.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Translate.apply"><code class="docutils literal notranslate"><span class="pre">Translate.apply()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Trapezoidate"><code class="docutils literal notranslate"><span class="pre">Trapezoidate</span></code></a><ul>
+<li><a class="reference internal" href="#synthtiger.components.transform.Trapezoidate.sample"><code class="docutils literal notranslate"><span class="pre">Trapezoidate.sample()</span></code></a></li>
+<li><a class="reference internal" href="#synthtiger.components.transform.Trapezoidate.apply"><code class="docutils literal notranslate"><span class="pre">Trapezoidate.apply()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -428,6 +492,7 @@ MIT license</p>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

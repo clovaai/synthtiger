@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Base component" href="component.html" /><link rel="prev" title="SynthTIGER" href="../index.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Components - SynthTIGER</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -216,7 +216,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,16 +238,81 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="component.html">Base component</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corpus.html">Corpus components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="font.html">Font components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="texture.html">Texture components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="layout.html">Layout components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transform.html">Transformation components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="color.html">Color components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="text_effect.html">Text effect components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="image_effect.html">Image effect components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrapper.html">Wrapper components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="component.html">Base component</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="component.html#synthtiger.components.component.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="corpus.html">Corpus components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="corpus.html#synthtiger.components.corpus.BaseCorpus"><code class="docutils literal notranslate"><span class="pre">BaseCorpus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="corpus.html#synthtiger.components.corpus.CharAugmentableCorpus"><code class="docutils literal notranslate"><span class="pre">CharAugmentableCorpus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="corpus.html#synthtiger.components.corpus.LengthAugmentableCorpus"><code class="docutils literal notranslate"><span class="pre">LengthAugmentableCorpus</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">Font components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="font.html#synthtiger.components.font.BaseFont"><code class="docutils literal notranslate"><span class="pre">BaseFont</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Texture components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="texture.html#synthtiger.components.texture.BaseTexture"><code class="docutils literal notranslate"><span class="pre">BaseTexture</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layout.html">Layout components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="layout.html#synthtiger.components.layout.CurveLayout"><code class="docutils literal notranslate"><span class="pre">CurveLayout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="layout.html#synthtiger.components.layout.FlowLayout"><code class="docutils literal notranslate"><span class="pre">FlowLayout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transform.html">Transformation components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Align"><code class="docutils literal notranslate"><span class="pre">Align</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Crop"><code class="docutils literal notranslate"><span class="pre">Crop</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Fit"><code class="docutils literal notranslate"><span class="pre">Fit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Pad"><code class="docutils literal notranslate"><span class="pre">Pad</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Perspective"><code class="docutils literal notranslate"><span class="pre">Perspective</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Rotate"><code class="docutils literal notranslate"><span class="pre">Rotate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Skew"><code class="docutils literal notranslate"><span class="pre">Skew</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Translate"><code class="docutils literal notranslate"><span class="pre">Translate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#synthtiger.components.transform.Trapezoidate"><code class="docutils literal notranslate"><span class="pre">Trapezoidate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="color.html">Color components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.ColorMap"><code class="docutils literal notranslate"><span class="pre">ColorMap</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.Gray"><code class="docutils literal notranslate"><span class="pre">Gray</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.GrayMap"><code class="docutils literal notranslate"><span class="pre">GrayMap</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.Opacity"><code class="docutils literal notranslate"><span class="pre">Opacity</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.RGB"><code class="docutils literal notranslate"><span class="pre">RGB</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.html#synthtiger.components.color.RGBMap"><code class="docutils literal notranslate"><span class="pre">RGBMap</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="text_effect.html">Text effect components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="text_effect.html#synthtiger.components.text_effect.TextBorder"><code class="docutils literal notranslate"><span class="pre">TextBorder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_effect.html#synthtiger.components.text_effect.TextExtrusion"><code class="docutils literal notranslate"><span class="pre">TextExtrusion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_effect.html#synthtiger.components.text_effect.TextShadow"><code class="docutils literal notranslate"><span class="pre">TextShadow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_effect.html#synthtiger.components.text_effect.TextSprinkle"><code class="docutils literal notranslate"><span class="pre">TextSprinkle</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image_effect.html">Image effect components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.AdditiveGaussianNoise"><code class="docutils literal notranslate"><span class="pre">AdditiveGaussianNoise</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Brightness"><code class="docutils literal notranslate"><span class="pre">Brightness</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.CoarseDropout"><code class="docutils literal notranslate"><span class="pre">CoarseDropout</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Contrast"><code class="docutils literal notranslate"><span class="pre">Contrast</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Dilate"><code class="docutils literal notranslate"><span class="pre">Dilate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.ElasticDistortion"><code class="docutils literal notranslate"><span class="pre">ElasticDistortion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Erode"><code class="docutils literal notranslate"><span class="pre">Erode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Grayscale"><code class="docutils literal notranslate"><span class="pre">Grayscale</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.GaussianBlur"><code class="docutils literal notranslate"><span class="pre">GaussianBlur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.ImageRotate"><code class="docutils literal notranslate"><span class="pre">ImageRotate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.JpegCompression"><code class="docutils literal notranslate"><span class="pre">JpegCompression</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.MedianBlur"><code class="docutils literal notranslate"><span class="pre">MedianBlur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.MotionBlur"><code class="docutils literal notranslate"><span class="pre">MotionBlur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Resample"><code class="docutils literal notranslate"><span class="pre">Resample</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_effect.html#synthtiger.components.image_effect.Shadow"><code class="docutils literal notranslate"><span class="pre">Shadow</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper.html">Wrapper components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrapper.html#synthtiger.components.wrapper.Iterator"><code class="docutils literal notranslate"><span class="pre">Iterator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrapper.html#synthtiger.components.wrapper.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrapper.html#synthtiger.components.wrapper.Switch"><code class="docutils literal notranslate"><span class="pre">Switch</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -263,10 +329,10 @@ MIT license</p>
                 </div>
                 <div class="title">Base component</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -307,6 +373,7 @@ MIT license</p>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

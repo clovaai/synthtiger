@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="SynthTIGER" href="synthtiger/index.html" /><link rel="prev" title="SynthTIGER" href="../index.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>API Reference - SynthTIGER</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -216,7 +216,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -235,25 +236,369 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="synthtiger/index.html">SynthTIGER</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="synthtiger/index.html#synthtiger.generator"><code class="docutils literal notranslate"><span class="pre">generator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthtiger/index.html#synthtiger.read_config"><code class="docutils literal notranslate"><span class="pre">read_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthtiger/index.html#synthtiger.read_template"><code class="docutils literal notranslate"><span class="pre">read_template()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="synthtiger/components/index.html">Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/component.html">Base component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/corpus.html">Corpus components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/font.html">Font components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/texture.html">Texture components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/layout.html">Layout components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/transform.html">Transformation components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/color.html">Color components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/text_effect.html">Text effect components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/image_effect.html">Image effect components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/wrapper.html">Wrapper components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/component.html">Base component</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/component.html#synthtiger.components.component.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/component.html#synthtiger.components.component.Component.sample"><code class="docutils literal notranslate"><span class="pre">Component.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/component.html#synthtiger.components.component.Component.apply"><code class="docutils literal notranslate"><span class="pre">Component.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/component.html#synthtiger.components.component.Component.data"><code class="docutils literal notranslate"><span class="pre">Component.data()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="synthtiger/layers/index.html">Layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="synthtiger/templates/index.html">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/corpus.html">Corpus components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/corpus.html#synthtiger.components.corpus.BaseCorpus"><code class="docutils literal notranslate"><span class="pre">BaseCorpus</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/corpus.html#synthtiger.components.corpus.BaseCorpus.sample"><code class="docutils literal notranslate"><span class="pre">BaseCorpus.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/corpus.html#synthtiger.components.corpus.BaseCorpus.data"><code class="docutils literal notranslate"><span class="pre">BaseCorpus.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/corpus.html#synthtiger.components.corpus.CharAugmentableCorpus"><code class="docutils literal notranslate"><span class="pre">CharAugmentableCorpus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/corpus.html#synthtiger.components.corpus.LengthAugmentableCorpus"><code class="docutils literal notranslate"><span class="pre">LengthAugmentableCorpus</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/font.html">Font components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/font.html#synthtiger.components.font.BaseFont"><code class="docutils literal notranslate"><span class="pre">BaseFont</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/font.html#synthtiger.components.font.BaseFont.sample"><code class="docutils literal notranslate"><span class="pre">BaseFont.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/font.html#synthtiger.components.font.BaseFont.data"><code class="docutils literal notranslate"><span class="pre">BaseFont.data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/texture.html">Texture components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/texture.html#synthtiger.components.texture.BaseTexture"><code class="docutils literal notranslate"><span class="pre">BaseTexture</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/texture.html#synthtiger.components.texture.BaseTexture.sample"><code class="docutils literal notranslate"><span class="pre">BaseTexture.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/texture.html#synthtiger.components.texture.BaseTexture.apply"><code class="docutils literal notranslate"><span class="pre">BaseTexture.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/texture.html#synthtiger.components.texture.BaseTexture.data"><code class="docutils literal notranslate"><span class="pre">BaseTexture.data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/layout.html">Layout components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.CurveLayout"><code class="docutils literal notranslate"><span class="pre">CurveLayout</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.CurveLayout.sample"><code class="docutils literal notranslate"><span class="pre">CurveLayout.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.CurveLayout.apply"><code class="docutils literal notranslate"><span class="pre">CurveLayout.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.FlowLayout"><code class="docutils literal notranslate"><span class="pre">FlowLayout</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.FlowLayout.sample"><code class="docutils literal notranslate"><span class="pre">FlowLayout.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/layout.html#synthtiger.components.layout.FlowLayout.apply"><code class="docutils literal notranslate"><span class="pre">FlowLayout.apply()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/transform.html">Transformation components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Align"><code class="docutils literal notranslate"><span class="pre">Align</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Align.sample"><code class="docutils literal notranslate"><span class="pre">Align.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Align.apply"><code class="docutils literal notranslate"><span class="pre">Align.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Crop"><code class="docutils literal notranslate"><span class="pre">Crop</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Crop.sample"><code class="docutils literal notranslate"><span class="pre">Crop.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Crop.apply"><code class="docutils literal notranslate"><span class="pre">Crop.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Fit"><code class="docutils literal notranslate"><span class="pre">Fit</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Fit.sample"><code class="docutils literal notranslate"><span class="pre">Fit.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Fit.apply"><code class="docutils literal notranslate"><span class="pre">Fit.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Pad"><code class="docutils literal notranslate"><span class="pre">Pad</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Pad.sample"><code class="docutils literal notranslate"><span class="pre">Pad.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Pad.apply"><code class="docutils literal notranslate"><span class="pre">Pad.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Perspective"><code class="docutils literal notranslate"><span class="pre">Perspective</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Perspective.sample"><code class="docutils literal notranslate"><span class="pre">Perspective.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Perspective.apply"><code class="docutils literal notranslate"><span class="pre">Perspective.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Rotate"><code class="docutils literal notranslate"><span class="pre">Rotate</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Rotate.sample"><code class="docutils literal notranslate"><span class="pre">Rotate.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Rotate.apply"><code class="docutils literal notranslate"><span class="pre">Rotate.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Skew"><code class="docutils literal notranslate"><span class="pre">Skew</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Skew.sample"><code class="docutils literal notranslate"><span class="pre">Skew.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Skew.apply"><code class="docutils literal notranslate"><span class="pre">Skew.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Translate"><code class="docutils literal notranslate"><span class="pre">Translate</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Translate.sample"><code class="docutils literal notranslate"><span class="pre">Translate.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Translate.apply"><code class="docutils literal notranslate"><span class="pre">Translate.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Trapezoidate"><code class="docutils literal notranslate"><span class="pre">Trapezoidate</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Trapezoidate.sample"><code class="docutils literal notranslate"><span class="pre">Trapezoidate.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/transform.html#synthtiger.components.transform.Trapezoidate.apply"><code class="docutils literal notranslate"><span class="pre">Trapezoidate.apply()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/color.html">Color components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.ColorMap"><code class="docutils literal notranslate"><span class="pre">ColorMap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Gray"><code class="docutils literal notranslate"><span class="pre">Gray</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Gray.sample"><code class="docutils literal notranslate"><span class="pre">Gray.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Gray.apply"><code class="docutils literal notranslate"><span class="pre">Gray.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Gray.data"><code class="docutils literal notranslate"><span class="pre">Gray.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.GrayMap"><code class="docutils literal notranslate"><span class="pre">GrayMap</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.GrayMap.sample"><code class="docutils literal notranslate"><span class="pre">GrayMap.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.GrayMap.data"><code class="docutils literal notranslate"><span class="pre">GrayMap.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Opacity"><code class="docutils literal notranslate"><span class="pre">Opacity</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Opacity.sample"><code class="docutils literal notranslate"><span class="pre">Opacity.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.Opacity.apply"><code class="docutils literal notranslate"><span class="pre">Opacity.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGB"><code class="docutils literal notranslate"><span class="pre">RGB</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGB.sample"><code class="docutils literal notranslate"><span class="pre">RGB.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGB.apply"><code class="docutils literal notranslate"><span class="pre">RGB.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGB.data"><code class="docutils literal notranslate"><span class="pre">RGB.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGBMap"><code class="docutils literal notranslate"><span class="pre">RGBMap</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGBMap.sample"><code class="docutils literal notranslate"><span class="pre">RGBMap.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/color.html#synthtiger.components.color.RGBMap.data"><code class="docutils literal notranslate"><span class="pre">RGBMap.data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/text_effect.html">Text effect components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextBorder"><code class="docutils literal notranslate"><span class="pre">TextBorder</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextBorder.sample"><code class="docutils literal notranslate"><span class="pre">TextBorder.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextBorder.apply"><code class="docutils literal notranslate"><span class="pre">TextBorder.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextExtrusion"><code class="docutils literal notranslate"><span class="pre">TextExtrusion</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextExtrusion.sample"><code class="docutils literal notranslate"><span class="pre">TextExtrusion.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextExtrusion.apply"><code class="docutils literal notranslate"><span class="pre">TextExtrusion.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextShadow"><code class="docutils literal notranslate"><span class="pre">TextShadow</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextShadow.sample"><code class="docutils literal notranslate"><span class="pre">TextShadow.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextShadow.apply"><code class="docutils literal notranslate"><span class="pre">TextShadow.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextSprinkle"><code class="docutils literal notranslate"><span class="pre">TextSprinkle</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextSprinkle.sample"><code class="docutils literal notranslate"><span class="pre">TextSprinkle.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/text_effect.html#synthtiger.components.text_effect.TextSprinkle.apply"><code class="docutils literal notranslate"><span class="pre">TextSprinkle.apply()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/image_effect.html">Image effect components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.AdditiveGaussianNoise"><code class="docutils literal notranslate"><span class="pre">AdditiveGaussianNoise</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.AdditiveGaussianNoise.sample"><code class="docutils literal notranslate"><span class="pre">AdditiveGaussianNoise.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.AdditiveGaussianNoise.apply"><code class="docutils literal notranslate"><span class="pre">AdditiveGaussianNoise.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Brightness"><code class="docutils literal notranslate"><span class="pre">Brightness</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Brightness.sample"><code class="docutils literal notranslate"><span class="pre">Brightness.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Brightness.apply"><code class="docutils literal notranslate"><span class="pre">Brightness.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.CoarseDropout"><code class="docutils literal notranslate"><span class="pre">CoarseDropout</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.CoarseDropout.sample"><code class="docutils literal notranslate"><span class="pre">CoarseDropout.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.CoarseDropout.apply"><code class="docutils literal notranslate"><span class="pre">CoarseDropout.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Contrast"><code class="docutils literal notranslate"><span class="pre">Contrast</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Contrast.sample"><code class="docutils literal notranslate"><span class="pre">Contrast.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Contrast.apply"><code class="docutils literal notranslate"><span class="pre">Contrast.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Dilate"><code class="docutils literal notranslate"><span class="pre">Dilate</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Dilate.sample"><code class="docutils literal notranslate"><span class="pre">Dilate.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Dilate.apply"><code class="docutils literal notranslate"><span class="pre">Dilate.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ElasticDistortion"><code class="docutils literal notranslate"><span class="pre">ElasticDistortion</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ElasticDistortion.sample"><code class="docutils literal notranslate"><span class="pre">ElasticDistortion.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ElasticDistortion.apply"><code class="docutils literal notranslate"><span class="pre">ElasticDistortion.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Erode"><code class="docutils literal notranslate"><span class="pre">Erode</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Erode.sample"><code class="docutils literal notranslate"><span class="pre">Erode.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Erode.apply"><code class="docutils literal notranslate"><span class="pre">Erode.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Grayscale"><code class="docutils literal notranslate"><span class="pre">Grayscale</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Grayscale.sample"><code class="docutils literal notranslate"><span class="pre">Grayscale.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Grayscale.apply"><code class="docutils literal notranslate"><span class="pre">Grayscale.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.GaussianBlur"><code class="docutils literal notranslate"><span class="pre">GaussianBlur</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.GaussianBlur.sample"><code class="docutils literal notranslate"><span class="pre">GaussianBlur.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.GaussianBlur.apply"><code class="docutils literal notranslate"><span class="pre">GaussianBlur.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ImageRotate"><code class="docutils literal notranslate"><span class="pre">ImageRotate</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ImageRotate.sample"><code class="docutils literal notranslate"><span class="pre">ImageRotate.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.ImageRotate.apply"><code class="docutils literal notranslate"><span class="pre">ImageRotate.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.JpegCompression"><code class="docutils literal notranslate"><span class="pre">JpegCompression</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.JpegCompression.sample"><code class="docutils literal notranslate"><span class="pre">JpegCompression.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.JpegCompression.apply"><code class="docutils literal notranslate"><span class="pre">JpegCompression.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MedianBlur"><code class="docutils literal notranslate"><span class="pre">MedianBlur</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MedianBlur.sample"><code class="docutils literal notranslate"><span class="pre">MedianBlur.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MedianBlur.apply"><code class="docutils literal notranslate"><span class="pre">MedianBlur.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MotionBlur"><code class="docutils literal notranslate"><span class="pre">MotionBlur</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MotionBlur.sample"><code class="docutils literal notranslate"><span class="pre">MotionBlur.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.MotionBlur.apply"><code class="docutils literal notranslate"><span class="pre">MotionBlur.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Resample"><code class="docutils literal notranslate"><span class="pre">Resample</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Resample.sample"><code class="docutils literal notranslate"><span class="pre">Resample.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Resample.apply"><code class="docutils literal notranslate"><span class="pre">Resample.apply()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Shadow"><code class="docutils literal notranslate"><span class="pre">Shadow</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Shadow.sample"><code class="docutils literal notranslate"><span class="pre">Shadow.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/image_effect.html#synthtiger.components.image_effect.Shadow.apply"><code class="docutils literal notranslate"><span class="pre">Shadow.apply()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/components/wrapper.html">Wrapper components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Iterator"><code class="docutils literal notranslate"><span class="pre">Iterator</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Iterator.sample"><code class="docutils literal notranslate"><span class="pre">Iterator.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Iterator.apply"><code class="docutils literal notranslate"><span class="pre">Iterator.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Iterator.data"><code class="docutils literal notranslate"><span class="pre">Iterator.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Selector.sample"><code class="docutils literal notranslate"><span class="pre">Selector.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Selector.apply"><code class="docutils literal notranslate"><span class="pre">Selector.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Selector.data"><code class="docutils literal notranslate"><span class="pre">Selector.data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Switch"><code class="docutils literal notranslate"><span class="pre">Switch</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Switch.sample"><code class="docutils literal notranslate"><span class="pre">Switch.sample()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Switch.apply"><code class="docutils literal notranslate"><span class="pre">Switch.apply()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="synthtiger/components/wrapper.html#synthtiger.components.wrapper.Switch.data"><code class="docutils literal notranslate"><span class="pre">Switch.data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="synthtiger/layers/index.html">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.copy"><code class="docutils literal notranslate"><span class="pre">Group.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.output"><code class="docutils literal notranslate"><span class="pre">Group.output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.merge"><code class="docutils literal notranslate"><span class="pre">Group.merge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.quad"><code class="docutils literal notranslate"><span class="pre">Group.quad</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.bbox"><code class="docutils literal notranslate"><span class="pre">Group.bbox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.size"><code class="docutils literal notranslate"><span class="pre">Group.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.width"><code class="docutils literal notranslate"><span class="pre">Group.width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.height"><code class="docutils literal notranslate"><span class="pre">Group.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.top"><code class="docutils literal notranslate"><span class="pre">Group.top</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.bottom"><code class="docutils literal notranslate"><span class="pre">Group.bottom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.left"><code class="docutils literal notranslate"><span class="pre">Group.left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.right"><code class="docutils literal notranslate"><span class="pre">Group.right</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.topleft"><code class="docutils literal notranslate"><span class="pre">Group.topleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.topright"><code class="docutils literal notranslate"><span class="pre">Group.topright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.bottomleft"><code class="docutils literal notranslate"><span class="pre">Group.bottomleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.bottomright"><code class="docutils literal notranslate"><span class="pre">Group.bottomright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.midtop"><code class="docutils literal notranslate"><span class="pre">Group.midtop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.midbottom"><code class="docutils literal notranslate"><span class="pre">Group.midbottom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.midleft"><code class="docutils literal notranslate"><span class="pre">Group.midleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.midright"><code class="docutils literal notranslate"><span class="pre">Group.midright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.center"><code class="docutils literal notranslate"><span class="pre">Group.center</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.centerx"><code class="docutils literal notranslate"><span class="pre">Group.centerx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Group.centery"><code class="docutils literal notranslate"><span class="pre">Group.centery</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer"><code class="docutils literal notranslate"><span class="pre">Layer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.copy"><code class="docutils literal notranslate"><span class="pre">Layer.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.output"><code class="docutils literal notranslate"><span class="pre">Layer.output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.paste"><code class="docutils literal notranslate"><span class="pre">Layer.paste()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.erase"><code class="docutils literal notranslate"><span class="pre">Layer.erase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.quad"><code class="docutils literal notranslate"><span class="pre">Layer.quad</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.bbox"><code class="docutils literal notranslate"><span class="pre">Layer.bbox</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.size"><code class="docutils literal notranslate"><span class="pre">Layer.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.width"><code class="docutils literal notranslate"><span class="pre">Layer.width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.height"><code class="docutils literal notranslate"><span class="pre">Layer.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.top"><code class="docutils literal notranslate"><span class="pre">Layer.top</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.bottom"><code class="docutils literal notranslate"><span class="pre">Layer.bottom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.left"><code class="docutils literal notranslate"><span class="pre">Layer.left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.right"><code class="docutils literal notranslate"><span class="pre">Layer.right</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.topleft"><code class="docutils literal notranslate"><span class="pre">Layer.topleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.topright"><code class="docutils literal notranslate"><span class="pre">Layer.topright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.bottomleft"><code class="docutils literal notranslate"><span class="pre">Layer.bottomleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.bottomright"><code class="docutils literal notranslate"><span class="pre">Layer.bottomright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.midtop"><code class="docutils literal notranslate"><span class="pre">Layer.midtop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.midbottom"><code class="docutils literal notranslate"><span class="pre">Layer.midbottom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.midleft"><code class="docutils literal notranslate"><span class="pre">Layer.midleft</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.midright"><code class="docutils literal notranslate"><span class="pre">Layer.midright</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.center"><code class="docutils literal notranslate"><span class="pre">Layer.center</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.centerx"><code class="docutils literal notranslate"><span class="pre">Layer.centerx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.Layer.centery"><code class="docutils literal notranslate"><span class="pre">Layer.centery</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.RectLayer"><code class="docutils literal notranslate"><span class="pre">RectLayer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/layers/index.html#synthtiger.layers.TextLayer"><code class="docutils literal notranslate"><span class="pre">TextLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="synthtiger/templates/index.html">Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/templates/index.html#synthtiger.templates.Template"><code class="docutils literal notranslate"><span class="pre">Template</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/templates/index.html#synthtiger.templates.Template.generate"><code class="docutils literal notranslate"><span class="pre">Template.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/templates/index.html#synthtiger.templates.Template.init_save"><code class="docutils literal notranslate"><span class="pre">Template.init_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/templates/index.html#synthtiger.templates.Template.save"><code class="docutils literal notranslate"><span class="pre">Template.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/templates/index.html#synthtiger.templates.Template.end_save"><code class="docutils literal notranslate"><span class="pre">Template.end_save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="synthtiger/utils/index.html">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/image_util.html">Image util</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/file_util.html">File util</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/unicode_util.html">Unicode util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/image_util.html">Image util</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.create_image"><code class="docutils literal notranslate"><span class="pre">create_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.paste_image"><code class="docutils literal notranslate"><span class="pre">paste_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.erase_image"><code class="docutils literal notranslate"><span class="pre">erase_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.blend_image"><code class="docutils literal notranslate"><span class="pre">blend_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.resize_image"><code class="docutils literal notranslate"><span class="pre">resize_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.fit_image"><code class="docutils literal notranslate"><span class="pre">fit_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.pad_image"><code class="docutils literal notranslate"><span class="pre">pad_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.dilate_image"><code class="docutils literal notranslate"><span class="pre">dilate_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.erode_image"><code class="docutils literal notranslate"><span class="pre">erode_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.grayscale_image"><code class="docutils literal notranslate"><span class="pre">grayscale_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.add_alpha_channel"><code class="docutils literal notranslate"><span class="pre">add_alpha_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.to_quad"><code class="docutils literal notranslate"><span class="pre">to_quad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.to_bbox"><code class="docutils literal notranslate"><span class="pre">to_bbox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.merge_quad"><code class="docutils literal notranslate"><span class="pre">merge_quad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.merge_bbox"><code class="docutils literal notranslate"><span class="pre">merge_bbox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.to_gray"><code class="docutils literal notranslate"><span class="pre">to_gray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.to_rgb"><code class="docutils literal notranslate"><span class="pre">to_rgb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/image_util.html#synthtiger.utils.image_util.color_distance"><code class="docutils literal notranslate"><span class="pre">color_distance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/file_util.html">File util</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/file_util.html#synthtiger.utils.file_util.search_files"><code class="docutils literal notranslate"><span class="pre">search_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/file_util.html#synthtiger.utils.file_util.read_charset"><code class="docutils literal notranslate"><span class="pre">read_charset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="synthtiger/utils/unicode_util.html">Unicode util</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.vert_orient"><code class="docutils literal notranslate"><span class="pre">vert_orient()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.vert_rot_flip"><code class="docutils literal notranslate"><span class="pre">vert_rot_flip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.vert_right_flip"><code class="docutils literal notranslate"><span class="pre">vert_right_flip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.indic_syllabic_category"><code class="docutils literal notranslate"><span class="pre">indic_syllabic_category()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.to_fullwidth"><code class="docutils literal notranslate"><span class="pre">to_fullwidth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.split_text"><code class="docutils literal notranslate"><span class="pre">split_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.reshape_text"><code class="docutils literal notranslate"><span class="pre">reshape_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="synthtiger/utils/unicode_util.html#synthtiger.utils.unicode_util.reorder_text"><code class="docutils literal notranslate"><span class="pre">reorder_text()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -274,10 +619,10 @@
                 </div>
                 <div class="title">SynthTIGER</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -318,6 +663,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     </body>
 </html>

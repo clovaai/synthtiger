@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Image util" href="image_util.html" /><link rel="prev" title="Templates" href="../templates/index.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <meta name="generator" content="sphinx-5.3.0, furo 2022.09.29"/>
         <title>Utils - SynthTIGER</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -216,7 +216,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,9 +238,44 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="image_util.html">Image util</a></li>
-<li class="toctree-l1"><a class="reference internal" href="file_util.html">File util</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unicode_util.html">Unicode util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_util.html">Image util</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.create_image"><code class="docutils literal notranslate"><span class="pre">create_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.paste_image"><code class="docutils literal notranslate"><span class="pre">paste_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.erase_image"><code class="docutils literal notranslate"><span class="pre">erase_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.blend_image"><code class="docutils literal notranslate"><span class="pre">blend_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.resize_image"><code class="docutils literal notranslate"><span class="pre">resize_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.fit_image"><code class="docutils literal notranslate"><span class="pre">fit_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.pad_image"><code class="docutils literal notranslate"><span class="pre">pad_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.dilate_image"><code class="docutils literal notranslate"><span class="pre">dilate_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.erode_image"><code class="docutils literal notranslate"><span class="pre">erode_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.grayscale_image"><code class="docutils literal notranslate"><span class="pre">grayscale_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.add_alpha_channel"><code class="docutils literal notranslate"><span class="pre">add_alpha_channel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.to_quad"><code class="docutils literal notranslate"><span class="pre">to_quad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.to_bbox"><code class="docutils literal notranslate"><span class="pre">to_bbox()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.merge_quad"><code class="docutils literal notranslate"><span class="pre">merge_quad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.merge_bbox"><code class="docutils literal notranslate"><span class="pre">merge_bbox()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.to_gray"><code class="docutils literal notranslate"><span class="pre">to_gray()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.to_rgb"><code class="docutils literal notranslate"><span class="pre">to_rgb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_util.html#synthtiger.utils.image_util.color_distance"><code class="docutils literal notranslate"><span class="pre">color_distance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file_util.html">File util</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_util.html#synthtiger.utils.file_util.search_files"><code class="docutils literal notranslate"><span class="pre">search_files()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_util.html#synthtiger.utils.file_util.read_charset"><code class="docutils literal notranslate"><span class="pre">read_charset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unicode_util.html">Unicode util</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.vert_orient"><code class="docutils literal notranslate"><span class="pre">vert_orient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.vert_rot_flip"><code class="docutils literal notranslate"><span class="pre">vert_rot_flip()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.vert_right_flip"><code class="docutils literal notranslate"><span class="pre">vert_right_flip()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.indic_syllabic_category"><code class="docutils literal notranslate"><span class="pre">indic_syllabic_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.to_fullwidth"><code class="docutils literal notranslate"><span class="pre">to_fullwidth()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.split_text"><code class="docutils literal notranslate"><span class="pre">split_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.reshape_text"><code class="docutils literal notranslate"><span class="pre">reshape_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="unicode_util.html#synthtiger.utils.unicode_util.reorder_text"><code class="docutils literal notranslate"><span class="pre">reorder_text()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -256,10 +292,10 @@ MIT license</p>
                 </div>
                 <div class="title">Image util</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../templates/index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -300,6 +336,7 @@ MIT license</p>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     </body>
 </html>

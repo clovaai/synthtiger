@@ -50,7 +50,7 @@ $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
 
 ```
-usage: synthtiger [-h] [-o DIR] [-c NUM] [-w NUM] [-v] SCRIPT NAME [CONFIG]
+usage: synthtiger [-h] [-o DIR] [-c NUM] [-w NUM] [-s NUM] [-v] SCRIPT NAME [CONFIG]
 
 positional arguments:
   SCRIPT                Script file path.
@@ -60,8 +60,9 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -o DIR, --output DIR  Directory path to save data.
-  -c NUM, --count NUM   Number of data. [default: 100]
+  -c NUM, --count NUM   Number of output data. [default: 100]
   -w NUM, --worker NUM  Number of workers. If 0, It generates data in the main process. [default: 0]
+  -s NUM, --seed NUM    Random seed. [default: None]
   -v, --verbose         Print error messages while generating data.
 ```
 

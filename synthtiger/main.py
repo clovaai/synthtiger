@@ -14,21 +14,27 @@ import synthtiger
 def run(args):
     if args.config is not None:
         config = synthtiger.read_config(args.config)
+
     pprint.pprint(config)
 
     template = synthtiger.read_template(args.script, args.name, config)
     generator = synthtiger.generator(
-        args.script, args.name, config, worker=args.worker, verbose=args.verbose
+        args.script,
+        args.name,
+        config=config,
+        count=args.count,
+        worker=args.worker,
+        seed=args.seed,
+        verbose=args.verbose,
     )
 
     if args.output is not None:
         template.init_save(args.output)
 
-    for idx in range(args.count):
-        data = next(generator)
+    for idx, (task_idx, data) in enumerate(generator):
         if args.output is not None:
-            template.save(args.output, data, idx)
-        print(f"Generated {idx + 1} data")
+            template.save(args.output, data, task_idx)
+        print(f"Generated {idx + 1} data (task {task_idx})")
 
     if args.output is not None:
         template.end_save(args.output)
@@ -49,7 +55,7 @@ def parse_args():
         metavar="NUM",
         type=int,
         default=100,
-        help="Number of data. [default: 100]",
+        help="Number of output data. [default: 100]",
     )
     parser.add_argument(
         "-w",
@@ -58,6 +64,14 @@ def parse_args():
         type=int,
         default=0,
         help="Number of workers. If 0, It generates data in the main process. [default: 0]",
+    )
+    parser.add_argument(
+        "-s",
+        "--seed",
+        metavar="NUM",
+        type=int,
+        default=None,
+        help="Random seed. [default: None]",
     )
     parser.add_argument(
         "-v",

@@ -3,6 +3,7 @@ set -euxo pipefail
 
 # Pillow
 
+sudo apt update
 sudo apt install -y \
     libtiff5-dev \
     libjpeg8-dev \

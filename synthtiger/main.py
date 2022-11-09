@@ -55,7 +55,7 @@ def parse_args():
         metavar="NUM",
         type=int,
         default=100,
-        help="Number of data. [default: 100]",
+        help="Number of output data. [default: 100]",
     )
     parser.add_argument(
         "-w",

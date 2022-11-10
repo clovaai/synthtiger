@@ -17,6 +17,7 @@ def run(args):
 
     pprint.pprint(config)
 
+    synthtiger.set_global_random_seed(args.seed)
     template = synthtiger.read_template(args.script, args.name, config)
     generator = synthtiger.generator(
         args.script,

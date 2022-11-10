@@ -62,6 +62,27 @@ def generator(path, name, config=None, count=None, worker=0, seed=None, verbose=
             yield task_idx, data
 
 
+def get_global_random_states():
+    states = {
+        "random": random.getstate(),
+        "numpy": np.random.get_state(),
+        "imgaug": imgaug.random.get_global_rng().state,
+    }
+    return states
+
+
+def set_global_random_states(states):
+    random.setstate(states["random"])
+    np.random.set_state(states["numpy"])
+    imgaug.random.get_global_rng().state = states["imgaug"]
+
+
+def set_global_random_seed(seed):
+    random.seed(seed)
+    np.random.set_state(np.random.RandomState(np.random.MT19937(seed)).get_state())
+    imgaug.seed(seed)
+
+
 def _run(func, args):
     proc = Process(target=func, args=args)
     proc.daemon = True
@@ -89,13 +110,9 @@ def _worker(path, name, config, task_queue, data_queue, verbose):
 
 
 def _generate(template, seed, verbose):
-    temp_state = random.getstate()
-    temp_np_state = np.random.get_state()
-    temp_imgaug_state = imgaug.random.get_global_rng().state
-
-    random.seed(seed)
-    np.random.set_state(np.random.RandomState(np.random.MT19937(seed)).get_state())
-    imgaug.seed(seed)
+    states = get_global_random_states()
+    set_global_random_seed(seed)
+    template.seed = seed
 
     while True:
         try:
@@ -106,8 +123,5 @@ def _generate(template, seed, verbose):
             continue
         break
 
-    random.setstate(temp_state)
-    np.random.set_state(temp_np_state)
-    imgaug.random.get_global_rng().state = temp_imgaug_state
-
+    set_global_random_states(states)
     return data

@@ -8,8 +8,6 @@ from abc import ABC, abstractmethod
 
 
 class Template(ABC):
-    seed = None
-
     def __init__(self, config=None):
         pass
 

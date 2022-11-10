@@ -112,7 +112,6 @@ def _worker(path, name, config, task_queue, data_queue, verbose):
 def _generate(template, seed, verbose):
     states = get_global_random_states()
     set_global_random_seed(seed)
-    template.seed = seed
 
     while True:
         try:

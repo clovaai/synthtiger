@@ -80,7 +80,7 @@ def set_global_random_states(states):
 def set_global_random_seed(seed):
     random.seed(seed)
     np.random.set_state(np.random.RandomState(np.random.MT19937(seed)).get_state())
-    imgaug.seed(seed)
+    imgaug.random.seed(seed)
 
 
 def _run(func, args):

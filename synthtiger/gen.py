@@ -33,7 +33,9 @@ def read_config(path):
     return config
 
 
-def generator(path, name, config=None, count=None, worker=0, seed=None, verbose=False):
+def generator(
+    path, name, config=None, count=None, worker=0, seed=None, retry=True, verbose=False
+):
     counter = range(count) if count is not None else itertools.count()
     tasks = _task_generator(seed)
 
@@ -44,7 +46,7 @@ def generator(path, name, config=None, count=None, worker=0, seed=None, verbose=
         post_count = count - pre_count if count is not None else None
 
         for _ in range(worker):
-            _run(_worker, (path, name, config, task_queue, data_queue, verbose))
+            _run(_worker, (path, name, config, task_queue, data_queue, retry, verbose))
         for _ in range(pre_count):
             task_queue.put(next(tasks))
 
@@ -58,7 +60,7 @@ def generator(path, name, config=None, count=None, worker=0, seed=None, verbose=
 
         for _ in counter:
             task_idx, task_seed = next(tasks)
-            data = _generate(template, task_seed, verbose)
+            data = _generate(template, task_seed, retry, verbose)
             yield task_idx, data
 
 
@@ -100,18 +102,19 @@ def _task_generator(seed):
         yield task_idx, task_seed
 
 
-def _worker(path, name, config, task_queue, data_queue, verbose):
+def _worker(path, name, config, task_queue, data_queue, retry, verbose):
     template = read_template(path, name, config)
 
     while True:
         task_idx, task_seed = task_queue.get()
-        data = _generate(template, task_seed, verbose)
+        data = _generate(template, task_seed, retry, verbose)
         data_queue.put((task_idx, data))
 
 
-def _generate(template, seed, verbose):
+def _generate(template, seed, retry, verbose):
     states = get_global_random_states()
     set_global_random_seed(seed)
+    data = None
 
     while True:
         try:
@@ -119,7 +122,8 @@ def _generate(template, seed, verbose):
         except:
             if verbose:
                 print(f"{traceback.format_exc()}")
-            continue
+            if retry:
+                continue
         break
 
     set_global_random_states(states)

@@ -79,7 +79,7 @@ def set_global_random_states(states):
     imgaug.random.get_global_rng().state = states["imgaug"]
 
 
-def set_global_random_seed(seed):
+def set_global_random_seed(seed=None):
     random.seed(seed)
     np.random.set_state(np.random.RandomState(np.random.MT19937(seed)).get_state())
     imgaug.random.seed(seed)

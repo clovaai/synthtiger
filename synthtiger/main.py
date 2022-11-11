@@ -26,6 +26,7 @@ def run(args):
         count=args.count,
         worker=args.worker,
         seed=args.seed,
+        retry=True,
         verbose=args.verbose,
     )
 

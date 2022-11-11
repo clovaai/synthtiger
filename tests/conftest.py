@@ -6,34 +6,35 @@ MIT license
 
 import pytest
 
-import synthtiger
+
+@pytest.fixture
+def synthtiger_horizontal_args():
+    """SynthTIGER horizontal args"""
+    args = {
+        "script": "examples/synthtiger/template.py",
+        "name": "SynthTiger",
+        "config": "examples/synthtiger/config_horizontal.yaml",
+    }
+    return args
 
 
 @pytest.fixture
-def synthtiger_horizontal_template():
-    """SynthTIGER horizontal template fixture"""
-    config = synthtiger.read_config("examples/synthtiger/config_horizontal.yaml")
-    template = synthtiger.read_template(
-        "examples/synthtiger/template.py", "SynthTiger", config
-    )
-    return template
+def synthtiger_vertical_args():
+    """SynthTIGER vertical args"""
+    args = {
+        "script": "examples/synthtiger/template.py",
+        "name": "SynthTiger",
+        "config": "examples/synthtiger/config_vertical.yaml",
+    }
+    return args
 
 
 @pytest.fixture
-def synthtiger_vertical_template():
-    """SynthTIGER vertical template fixture"""
-    config = synthtiger.read_config("examples/synthtiger/config_vertical.yaml")
-    template = synthtiger.read_template(
-        "examples/synthtiger/template.py", "SynthTiger", config
-    )
-    return template
-
-
-@pytest.fixture
-def multiline_template():
-    """Multiline template fixture"""
-    config = synthtiger.read_config("examples/multiline/config.yaml")
-    template = synthtiger.read_template(
-        "examples/multiline/template.py", "Multiline", config
-    )
-    return template
+def multiline_args():
+    """Multiline args"""
+    args = {
+        "script": "examples/multiline/template.py",
+        "name": "Multiline",
+        "config": "examples/multiline/config.yaml",
+    }
+    return args

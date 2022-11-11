@@ -4,31 +4,44 @@ Copyright (c) 2021-present NAVER Corp.
 MIT license
 """
 
-import traceback
-
 import pytest
+
+import synthtiger
 
 
 @pytest.mark.parametrize(
-    "template",
+    "args",
     [
-        "synthtiger_horizontal_template",
-        "synthtiger_vertical_template",
-        "multiline_template",
+        "synthtiger_horizontal_args",
+        "synthtiger_vertical_args",
+        "multiline_args",
     ],
 )
-def test_generation_error(template, request):
+def test_generation_error(args, request):
     """Test for errors during data generation"""
 
-    template = request.getfixturevalue(template)
+    args = request.getfixturevalue(args)
+    seed = None
+
+    synthtiger.set_global_random_seed(seed)
+    config = synthtiger.read_config(args["config"])
+    generator = synthtiger.generator(
+        args["script"],
+        args["name"],
+        config=config,
+        count=None,
+        worker=0,
+        seed=seed,
+        retry=False,
+        verbose=True,
+    )
+
     total = 100
     error = 0
 
     for _ in range(total):
-        try:
-            template.generate()
-        except:
+        _, data = next(generator)
+        if data is None:
             error += 1
-            print(traceback.format_exc())
 
     assert error < total

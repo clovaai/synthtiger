@@ -21,8 +21,6 @@ class TextLayer(Layer):
         bold=False,
         vertical=False,
     ):
-        # https://en.wikipedia.org/wiki/Backslash
-        text = text.replace("\\", "＼")
 
         font = self._read_font(path, size)
         image, bbox = self._render_text(text, font, color, bold, vertical)

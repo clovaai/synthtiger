@@ -18,11 +18,11 @@ corpus:
     # length augmentable corpus
     - paths: [resources/corpus/mjsynth.txt, resources/corpus/synthtext.txt]
       weights: [1, 1]
-      min_length: 1
-      max_length: 25
+      min_length: 5
+      max_length: 15
       textcase: [lower, upper, capitalize]
       augmentation: 0.1
-      augmentation_length: [1, 25]
+      augmentation_length: [5, 15]
     # char augmentable corpus
     - paths: []
       weights: []
@@ -79,13 +79,13 @@ shape:
         sigma: [0, 0.6]
 
 layout:
-  weights: [4, 1]
+  weights: [0,1]
   args:
     # flow layout
     - space: [-2, 5]
       line_align: [middle]
     # curve layout
-    - curve: [20, 40]
+    - curve: [100, 100]
       space: [-2, 5]
       convex: 0.5
       upward: 0.5

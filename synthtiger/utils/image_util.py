@@ -230,7 +230,12 @@ def to_bbox(quad):
 
 def merge_quad(quads):
     quads = np.array(quads, dtype=np.float32)
-    topleft = np.amin(quads, axis=(0, 1))
+    try:
+        topleft = np.amin(quads, axis=(0, 1))
+    except Exception as e:
+        print(e)
+        print(quads)
+        raise Exception()
     bottomright = np.amax(quads, axis=(0, 1))
     width, height = bottomright - topleft
     quad = np.array(

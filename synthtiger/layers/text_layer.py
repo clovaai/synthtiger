@@ -172,11 +172,13 @@ class TextLayer(Layer):
 
         if not vertical:
             ascent, descent = font.getmetrics()
-            width = font.getsize(text, direction=direction)[0]
+            left, top, right, bottom = font.getbbox(text, direction=direction)
+            width  = right - left
             height = ascent + descent
             bbox = [0, -ascent, width, height]
         else:
-            width, height = font.getsize(text, direction=direction)
+            left, top, right, bottom = font.getbbox(text, direction=direction)
+            width, height  = right - left, bottom-top
             bbox = [-width // 2, 0, width, height]
 
         return bbox
